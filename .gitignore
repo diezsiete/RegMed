@@ -1,4 +1,6 @@
 /vendor/
-public_html/vendors/
-phpsessions/
-!phpsessions/.gitkeep
+/public_html/vendors/
+/phpsessions/
+!/phpsessions/.gitkeep
+/application/config/config.php
+/application/config/database.php
