@@ -1,0 +1,131 @@
+body{
+    color:#44515f;
+}
+label{
+    margin-top: 5px;
+}
+h3{
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.btn-group label.btn{
+    margin-top:0;
+}
+ul.bar_tabs>li.active{
+    margin-top: -14px;
+}
+ul.bar_tabs{
+    padding-left:0;
+}
+
+.login_content form input[type=submit] {
+    float: none;
+    margin: 0;
+}
+.login_content .alert{
+    text-shadow: none;
+}
+
+.alert .help-block, .alert-warning, .alert-danger{
+    color:#ffffff;
+}
+
+.top_nav .navbar-right{
+    width: 30%;
+}
+.top_nav .top_search {
+    float: left;
+    margin-left: 20px;
+    padding-top: 11px;
+    width: 350px;
+    margin-bottom: 0;
+}
+.top_nav .top_search input, .top_nav .top_search input:focus, .top_nav .top_search .input-group-btn button{
+    border-color: #cccccc;
+}
+.profile{
+    background: #172D44;
+    padding: 0px 0;
+}
+.img-circle.profile_img{
+    margin-top: 0px;
+}
+.profile_info{
+    padding: 5px 0px 0px;
+}
+.profile_info span{
+    line-height: 0;
+}
+.profile_info span.edad{
+    color:#ffffff;
+}
+
+.nav.child_menu {
+    display: block;
+}
+.badge{
+    font-weight: normal;
+}
+/** nav reporte codigo **/
+.main_menu span.reporte-codigo {
+    float: right;
+    margin-top: 9px;
+    margin-right: 5px;
+    color: #C4CFDA;
+    background: #425668;
+    font-weight:lighter;
+}
+/** nav crear formato button **/
+.nav.child_menu>li>a.crear-formato {
+    text-align: center;
+    margin-top: 8px;
+    margin-left:-21px;
+    color: #9aa5b1;
+    padding:0;
+    position:absolute;
+    z-index:10;
+}
+.nav.child_menu>li>a.crear-formato:hover{
+    color: #1ABB9C;
+}
+
+.nav.child_menu>li>a.crear-formato .fa{
+    font-size: 20px;
+}
+/** FORMATO **/
+.pagination{
+    margin:0;
+}
+
+/** E07 **/
+#horas_tagsinput .tag:after{
+    border-left:0;
+}
+#horas_tagsinput.tagsinput span.tag{
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    font-size: 15px;
+}
+.badge.hora, .formato-table-badge{
+    margin-right:3px;
+    margin-bottom:3px;
+}
+
+.label-light-blue{
+    background-color: #79aabc !important;
+}
+.label-purple {
+    background-color: #605ca8 !important;
+}
+.label-orange {
+    background-color: #ff851b !important;
+
+}
+.label-maroon {
+    background-color: #d81b60 !important;
+}
+.label-gray {
+    color: #000;
+    background-color: #d2d6de !important;
+}

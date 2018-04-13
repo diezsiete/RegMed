@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7eafa57e-609f-4ce1-8620-b7557156db44" name="fundacionjuanpabloii" url="http://ftp.accountsupport.com">
+        <fileTransfer host="ftp.accountsupport.com" port="21" password="dfecdfdfdfc4dfcedfcbdfc9df9bdfc5dfc4dfeadf98df93dfcb" username="jguerrero">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

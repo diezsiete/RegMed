@@ -1,0 +1,4 @@
+/vendor/
+public_html/vendors/
+phpsessions/
+!phpsessions/.gitkeep
