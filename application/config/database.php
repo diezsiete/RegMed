@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'hostname' => 'localhost',//'fundacionjuan.accountsupportmysql.com',
+	'username' => 'root', //'admin_2016_bd',
+	'password' => '', //'Fund@ci0n2016',
+	'database' => 'regmed',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
