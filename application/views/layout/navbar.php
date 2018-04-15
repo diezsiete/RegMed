@@ -1,9 +1,15 @@
 <?php
-$nav= $this->modulo->getFormatosAccesoByModulo();
+$nav = $this->modulo->getFormatsByModule();
+$administracion = false;
+if(isset($nav['administracion'])){
+    $administracion = $nav['administracion'];
+    unset($nav['administracion']);
+}
 $hay_formatos = false;
 foreach($nav as $modulo)
-    if(count($modulo['formatos']))
+    if(count($modulo->formatosEntity))
         $hay_formatos = true;
+
 ?>
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
@@ -15,7 +21,9 @@ foreach($nav as $modulo)
 
         <!-- menu profile quick info -->
         <div class="profile clearfix">
-            <?php if($residente = $this->residente_helper->session()): ?>
+            
+            <?php if($residente = $this->residente_helper->session()):?>
+            <a href="<?php echo site_url($residente->getVerLink()); ?>">
                 <div class="profile_pic">
                     <img src="<?php echo 'data:image/jpeg;base64,'.base64_encode( $residente->foto )  ?> " class="img-circle profile_img"/>
                 </div>
@@ -24,7 +32,9 @@ foreach($nav as $modulo)
                     <span><?php echo $residente->tipo_documento . " " . $residente->cedula ?></span><br>
                     <span class="edad"><?php echo $residente->anos ?> Años</span>
                 </div>
+            </a>
             <?php endif ?>
+          
             <div class="clearfix"></div>
         </div>
         <!-- /menu profile quick info -->
@@ -37,10 +47,10 @@ foreach($nav as $modulo)
                 <div class="menu_section">
                     <h3>Formatos</h3>
                     <ul class="nav side-menu">
-                    <?php foreach($nav as $modulo_key => $modulo): ?>
-                        <li class="active"><a> <?php echo $modulo['titulo'] ?> <span class="fa fa-chevron-down"></span></a>
+                    <?php foreach($nav as $modulo): ?>
+                        <li class="active"><a> <?php echo $modulo->titulo ?> <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
-                                <?php foreach($modulo['formatos'] as $formato_key => $formato): ?>
+                                <?php foreach($modulo->formatosEntity as $formato): ?>
                                     <li>
 
                                         <?php if($formato->crear): ?>
@@ -48,8 +58,8 @@ foreach($nav as $modulo)
                                                 <i class="fa fa-plus-circle"></i>
                                             </a>
                                         <?php endif ?>
-                                        <?php if(isset($formato->codigo) && $formato->codigo): ?>
-                                            <span class="reporte-codigo badge"><?php echo strtoupper($formato->codigo) ?></span>
+                                        <?php if($formato->getCodigo()): ?>
+                                            <span class="reporte-codigo badge"><?php echo strtoupper($formato->getCodigo()) ?></span>
                                         <?php endif ?>
                                         <a href="<?php echo site_url($formato->consultar) ?>">
                                             <?php echo $formato->titulo ?>
@@ -60,6 +70,23 @@ foreach($nav as $modulo)
                             </ul>
                         </li>
                     <?php endforeach ?>
+                    </ul>
+                </div>
+            <?php endif ?>
+            <?php if($administracion): ?>
+                <div class="menu_section">
+                    <h3>Administración</h3>
+                    <ul class="nav side-menu">
+                        <?php foreach($administracion->formatosEntity as $formato):
+                            if(in_array($formato->key, ["acudiente", "objeto"]))
+                                continue;
+                            ?>
+                            <li>
+                                <a href="<?php echo site_url($formato->consultar) ?>">
+                                    <?php echo $formato->titulo ?>s
+                                </a>
+                            </li>
+                        <?php endforeach ?>
                     </ul>
                 </div>
             <?php endif ?>

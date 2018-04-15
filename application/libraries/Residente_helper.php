@@ -40,7 +40,7 @@ class Residente_helper
     /**
      * Obtener o insertar residente en sesion
      * @param null|string|stdClass $residente
-     * @return false|stdClass
+     * @return false|ResidenteEntity
      */
     public function session($residente = null)
     {

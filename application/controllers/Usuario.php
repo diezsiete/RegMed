@@ -84,25 +84,25 @@ class Usuario extends MY_Controller {
 
     public function consultarUsuario()
     {
-        try {
-            $formato = $this->modulo->getFormato('usuario');
-            $model   = $this->modulo->getFormatoModel($formato);
-            $cols    = $this->modulo->getFormatoConsultaCols($formato);
-
-
-            $this->paginacion->setTotal($model->countAll());
-            $limit = $this->paginacion->getLimit();
-            $entities = $model->findAll($limit[1], $limit[0]);
-            $this->load->view('formato/consultar', [
-                'formato' => $formato,
-                'entities'=> $entities,
-                'cols'    => $cols,
-                'paginacion' => $this->paginacion->paginacion($this->load)
-            ]);
-        }catch(Exception $e){
-            //TODO si no existe el formato
-            k($e->getMessage());
+        $insert_message = '';
+        if($restaurar_id = $this->input->post('restaurar')){
+            $this->usuario_model->cambiarPass($restaurar_id, $restaurar_id);
+            $insert_message = "Se actualizo correctamente la contraseña.";
         }
+        $formato = $this->modulo->getFormato('usuario');
+        $model   = $this->modulo->getFormatoModel($formato);
+        $cols    = $this->modulo->getFormatoConsultaCols($formato);
+
+        $this->paginacion->setTotal($model->countAll());
+        $limit = $this->paginacion->getLimit();
+        $entities = $model->findAll($limit[1], $limit[0]);
+        $this->load->view('/usuario/consultar_usuario', [
+            'formato' => $formato,
+            'entities'=> $entities,
+            'cols'    => $cols,
+            'paginacion' => $this->paginacion->paginacion($this->load),
+            'insert_message' => $insert_message
+        ]);
     }
 }
 ?>

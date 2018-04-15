@@ -6,6 +6,7 @@
 
 class Utils
 {
+    
     public function dateFormat($date_string, $format_source = 'Y-m-d H:i:s', $format_output = 'Y-m-d')
     {
         $myDateTime = DateTime::createFromFormat($format_source, $date_string);
@@ -143,5 +144,14 @@ class Utils
             $server_request_scheme = 'http';
         }
         return $server_request_scheme;
+    }
+
+    public function controllerMethodExists($controller, $method)
+    {
+        $path = APPPATH.'controllers/'.$controller.'.php';
+        if(!class_exists($controller) && file_exists($path)) {
+            require_once($path);
+        }
+        return class_exists($controller) ? method_exists($controller, $method) : false;
     }
 }

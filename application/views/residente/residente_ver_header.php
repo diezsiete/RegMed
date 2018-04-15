@@ -12,6 +12,14 @@ $this->load->view('layout/header');
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
+                <?php if($tab_active == "residente" && $formato_residente->editar): ?>
+                <div class="residente-editar-button-wrap">
+                    <a class="btn btn-success btn-sm pull-right"
+                       href="<?php echo site_url(str_replace('__id__', $residente->cedula, $formato_residente->editar)) ?>">
+                        <i class="fa fa-pencil"></i> Editar
+                    </a>
+                </div>
+                <?php endif ?>
                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                         <li role="presentation" class="<?php echo $tab_active == "residente"  ? "active" : ""?>" >
@@ -21,20 +29,25 @@ $this->load->view('layout/header');
                                 Datos personales
                             </a>
                         </li>
-                        <li role="presentation" class="<?php echo $tab_active == "acudiente"  ? "active" : ""?>">
-                            <a href="<?php echo site_url("residente/consultar/acudiente") ?>"
-                               role="tab" id="acudiente"
-                                <?php echo "aria-expanded='" . ($tab_active == "acudiente" ? "true" : "false") ."'" ?>>
-                                Acudientes
-                            </a>
-                        </li>
-                        <li role="presentation" class="<?php echo $tab_active == "objeto"  ? "active" : ""?>">
-                            <a href="<?php echo site_url("residente/consultar/objeto") ?>"
-                               role="tab" id="objeto" aria-expanded="false"
-                                <?php echo "aria-expanded='" . ($tab_active == "objeto" ? "true" : "false") ."'" ?>>
-                                Objetos personales
-                            </a>
-                        </li>
+                        <?php if($formato_acudiente->ver): ?>
+                            <li role="presentation" class="<?php echo $tab_active == "acudiente"  ? "active" : ""?>">
+                                <a href="<?php echo site_url("residente/consultar/acudiente") ?>"
+                                   role="tab" id="acudiente"
+                                    <?php echo "aria-expanded='" . ($tab_active == "acudiente" ? "true" : "false") ."'" ?>>
+                                    Acudientes
+                                </a>
+                            </li>
+                        <?php
+                        endif;
+                        if($formato_objeto->ver): ?>
+                            <li role="presentation" class="<?php echo $tab_active == "objeto"  ? "active" : ""?>">
+                                <a href="<?php echo site_url("residente/consultar/objeto") ?>"
+                                   role="tab" id="objeto" aria-expanded="false"
+                                    <?php echo "aria-expanded='" . ($tab_active == "objeto" ? "true" : "false") ."'" ?>>
+                                    Objetos personales
+                                </a>
+                            </li>
+                        <?php endif ?>
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">

@@ -67,6 +67,11 @@ ul.bar_tabs{
 .badge{
     font-weight: normal;
 }
+.alert-info{
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
 /** nav reporte codigo **/
 .main_menu span.reporte-codigo {
     float: right;
@@ -128,4 +133,40 @@ ul.bar_tabs{
 .label-gray {
     color: #000;
     background-color: #d2d6de !important;
+}
+/* RESIDENTE */
+.residente-editar-button-wrap{
+    position: relative;
+    z-index:2;
+}
+/* GRAFICAS */
+
+.graficas-content{
+    padding:0;
+    margin-top:0;
+}
+.graficas-content .tab-content-wrap{
+    padding-left: 0;
+    padding-right:0;
+}
+.graficas-content .nav-tabs-wrap{
+    padding-right: 0;
+    padding-left: 0;
+    z-index: 2
+
+}
+.graficas-content .tabs-left{
+    padding-top: 0;
+}
+.graficas-content .tabs-left>li>a{
+    background: #F5F7FA;
+}
+.graficas-content .tabs-left>li.active>a{
+    background: #FFFFFF;
+    margin-right: -1px;
+    border-bottom-color:#ddd;
+}
+.graficas-content .tab-content>.active{
+    border: 1px solid #ddd;
+    padding:0;
 }

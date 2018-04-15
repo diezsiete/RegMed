@@ -101,4 +101,5 @@ if(!$view && isset($entity)){
 <?php $this->load->view('layout/footer_formato_form', ['scripts' => [
     'vendors/flatpickr/flatpickr.min.js',
     'vendors/flatpickr/es.js',
+    'assets/js/e14.js'
 ]]) ?>

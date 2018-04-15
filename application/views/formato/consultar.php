@@ -4,7 +4,7 @@ $this->load->view('layout/header');
 <div class="page-title">
     <div class="title_left">
         <h2><?php echo $formato->titulo ?>
-            <small><?php echo  isset($formato->codigo) ? strtoupper($formato->codigo) : "" ?></small></h2>
+            <small><?php echo  $formato->getCodigo() ? strtoupper($formato->getCodigo()) : "" ?></small></h2>
     </div>
 
     <div class="">

@@ -1,8 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+require_once ENTITIES_DIR . 'ResidenteEntity.php';
+
 class Residente_model extends MY_Model
 {
 
+    protected $entityClass = 'ResidenteEntity';
     protected $table = 'residente';
     protected $primary = 'cedula';
     protected $queryCols = '*, DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), fecha_nacimiento)), "%Y")+0 as anos,
@@ -34,12 +37,12 @@ class Residente_model extends MY_Model
         ['field' => 'servicio_de_urgencias','label' => 'Servicio de Urgencias' ,'rules' => 'trim|required|max_length[20]'],
         ['field' => 'valor_pension',    'label' => 'ValorPension' ,      'rules' => 'trim|max_length[20]|numeric'],
         ['field' => 'numero_hijos',     'label' => 'Número Hijos' ,      'rules' => 'trim|max_length[20]|required|numeric'],
-        ['field' => 'foto',            'label' => 'Foto',               'rules' => ''],
         ['field' => 'escolaridad',     'label' => 'Escolaridad',        'rules' => 'trim|required'],
         ['field' => 'pensionado',      'label' => 'Pensionado',         'rules' => 'trim|required'],
         ['field' => 'estado_civil',     'label' => 'Estado Civil',       'rules' => 'trim|required'],
         ['field' => 'tipo_plan',        'label' => 'Tipo Plan',          'rules' => 'trim|required'],
         ['field' => 'activo',          'label' => 'Activo',             'rules' => 'trim|required'],
+        //['field' => 'foto',            'label' => 'Foto',               'rules' => ''],
     ];
 
     
@@ -72,6 +75,10 @@ class Residente_model extends MY_Model
                 throw new Exception("Error en creación de registro");
         }
         throw new Exception("El residente con cedula '".$residente->cedula."' ya existe");
+    }
+
+    public function update(CI_Input $input, $entity, $user = null) {
+        return parent::update($input, $entity);
     }
 
     /**

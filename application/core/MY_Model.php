@@ -88,7 +88,7 @@ class MY_Model extends CI_Model
         if($user)
             $set['usuario_id'] = $user;
 
-        return $this->db->update($this->table, $set, ['id' => $entity->id]);
+        return $this->db->update($this->table, $set, [$this->primary => $entity->id]);
     }
 
     /**
@@ -97,7 +97,7 @@ class MY_Model extends CI_Model
      */
     public function delete($entity)
     {
-        return $this->db->delete($this->table, ['id' => $entity->id]);
+        return $this->db->delete($this->table, [$this->primary => $entity->id]);
     }
 
     /**

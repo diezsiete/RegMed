@@ -57,18 +57,7 @@
                                             </button>
                                         </td>
                                         <td>
-                                            <?php if($formato->ver): ?>
-                                                <a href="<?php echo str_replace('__id__', $residente->cedula, site_url($formato->ver));?>"
-                                                   class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php endif ?>
-                                            <?php if($formato->editar): ?>
-                                                <a href="<?php echo str_replace('__id__', $residente->cedula, site_url($formato->editar)); ?>"
-                                                   class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></a>
-                                            <?php endif ?>
-                                            <?php if($this->usuario_helper->session()->rol == 1): ?>
-                                                <a href="<?php echo str_replace('__id__', $residente->cedula, site_url($formato->borrar)); ?>"
-                                                   class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
-                                            <?php endif ?>
+                                            <?php echo btns_crud($formato, $residente->cedula) ?>
                                         </td>
                                     </tr>
                                 <?php endforeach ?>

@@ -53,6 +53,7 @@ class MY_Controller extends CI_Controller
         
         $this->load->library('session');
         $this->load->helper('url');
+        $this->load->helper('widget_helper');
         $this->load->helper('form');
         $this->load->library('form_validation', [
             'error_prefix' => "", 'error_suffix' => ""

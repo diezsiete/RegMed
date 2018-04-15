@@ -4,11 +4,7 @@
 class Entity implements JsonSerializable
 {
     public $attrs;
-
-    /**
-     * @var CI_Controller
-     */
-    protected $CI;
+    
 
     /**
      * @var Utils

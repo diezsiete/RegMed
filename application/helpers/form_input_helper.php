@@ -94,7 +94,7 @@ function input_button_radio($name, $view = false, $label = "", $options = [], $d
             $checked = set_radio($name, $value, $default == $value);
             //fix en actualizar entidades que rellena $_POST pero set_radio no lo coge
             if($input)
-                $checked =  !$checked && $value == $input ? "checked='checked'" : "";
+                $checked = $value == $input ? "checked='checked'" : "";
             $html .= '<label class="btn btn-default'.($checked ? " active" : "").'">'
                    .    "<input type='radio' autocomplete='off' $checked value='$value' name='$name'> $text"
                    . '</label>';

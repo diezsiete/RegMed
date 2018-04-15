@@ -60,12 +60,37 @@ class Residente extends MY_Controller
         $this->load->view('residente/residente_ver', [
             'formato_residente' => $this->modulo->getFormato('residente'),
             'formato' => $this->modulo->getFormato('residente'),
+            'formato_acudiente' => $this->modulo->getFormato('acudiente'),
+            'formato_objeto' => $this->modulo->getFormato('objeto'),
             'residente' => $residente,
             'tab_active' => 'residente',
             'view' => true,
         ]);
     }
-    
+
+    public function editarResidente($id)
+    {
+        try {
+            $formato = $this->modulo->getFormato('residente');
+            $model   = $this->modulo->getFormatoModel($formato);
+            $entity  = $model->findById($id);
+            $url = str_replace('__id__', $id, $formato->ver);
+            $vars    = $this->formato_helper->actualizar($model, $entity, $url);
+            if(!$this->input->post('actualizar'))
+                $model->entityToPost($entity);
+
+            $this->load->view('formato/'.$formato->key.'_form', $vars + [
+                    'formato' => $formato,
+                    'view' => false,
+                    'entity' => $entity
+                ]);
+        }catch(Exception $e){
+            //TODO si no existe el formato
+            k($e->getMessage());
+        }
+    }
+
+
     public function consultarAcudiente()
     {
         $residente  = $this->residente_helper->session();
@@ -78,6 +103,8 @@ class Residente extends MY_Controller
         $this->load->view('residente/acudiente_consultar', [
             'formato_residente' => $this->modulo->getFormato('residente'),
             'formato' => $formato,
+            'formato_acudiente' => $formato,
+            'formato_objeto' => $this->modulo->getFormato('objeto'),
             'residente' => $residente,
             'tab_active' => 'acudiente',
             'entities'=> $entities,
@@ -95,6 +122,8 @@ class Residente extends MY_Controller
         $this->load->view('residente/acudiente_form', $vars + [
             'formato_residente' => $this->modulo->getFormato('residente'),
             'formato' => $formato,
+            'formato_acudiente' => $formato,
+            'formato_objeto' => $this->modulo->getFormato('objeto'),
             'tab_active' => 'acudiente',
             'view' => false,
             'residente' => $residente,
@@ -110,6 +139,8 @@ class Residente extends MY_Controller
             $this->load->view('residente/acudiente_form', [
                 'formato_residente' => $this->modulo->getFormato('residente'),
                 'formato' => $formato,
+                'formato_acudiente' => $formato,
+                'formato_objeto' => $this->modulo->getFormato('objeto'),
                 'tab_active' => 'acudiente',
                 'view' => true,
                 'residente' => $this->residente_helper->session(),
@@ -132,6 +163,8 @@ class Residente extends MY_Controller
         $this->load->view('residente/objeto_consultar', [
             'formato_residente' => $this->modulo->getFormato('residente'),
             'formato' => $formato,
+            'formato_objeto' => $formato,
+            'formato_acudiente' => $this->modulo->getFormato('acudiente'),
             'residente' => $residente,
             'tab_active' => 'objeto',
             'entities'=> $entities,
@@ -149,6 +182,8 @@ class Residente extends MY_Controller
         $this->load->view('residente/objeto_form', $vars + [
             'formato_residente' => $this->modulo->getFormato('residente'),
             'formato' => $formato,
+            'formato_objeto' => $formato,
+            'formato_acudiente' => $this->modulo->getFormato('acudiente'),
             'tab_active' => 'objeto',
             'view' => false,
             'residente' => $residente,
@@ -165,6 +200,8 @@ class Residente extends MY_Controller
             $this->load->view('residente/objeto_form', [
                 'formato_residente' => $this->modulo->getFormato('residente'),
                 'formato' => $formato,
+                'formato_objeto' => $formato,
+                'formato_acudiente' => $this->modulo->getFormato('acudiente'),
                 'tab_active' => 'objeto',
                 'view' => true,
                 'residente' => $this->residente_helper->session(),

@@ -4,145 +4,123 @@ $config['formatos'] = [
     //Formatos enfermeria
     'e07' => [
         'titulo' => 'Suministro de medicamentos',
-        'roles' => [1, 7],
-        'codigo' => 'e07'
+        'codigo' => 'e07',
+        'permiso' => ['C' => [7, 8], 'R' => [7, 8], 'U' => [7, 8], 'D' => [7, 8]]
     ],
     'e07c' => [
         'titulo' => 'Control suministro de medicamentos',
-        'roles' => [1, 2, 7]
+        'permiso' => ['C' => [2, 7, 8], 'R' => [2, 3, 4, 7, 8], 'U' => [8], 'D' => [8]]
     ],
     'e08' => [
         'titulo' => 'Signos vitales',
-        'codigo' => 'e08'
+        'codigo' => 'e08',
+        'permiso' => ['C' => [2, 7, 8], 'R' => [2, 3, 4, 7, 8], 'U' => [8], 'D' => [8]]
     ],
     'e08bis' => [
         'titulo' => 'Signos vitales en situacion particular',
-        'codigo' => 'e08bis'
+        'codigo' => 'e08bis',
+        'permiso' => ['C' => [2, 7, 8], 'R' => [2, 3, 4, 7, 8], 'U' => [8], 'D' => [8]]
     ],
     'e14' => [
         'titulo' => 'Seguimiento enfermería',
-        'codigo' => 'e14'
+        'codigo' => 'e14',
+        'permiso' => ['C' => [2, 7, 8], 'R' => [2, 3, 4, 7, 8], 'U' => [8], 'D' => [8]]
     ],
     'e28' => [
         'titulo' => 'Resumen de control de peso',
-        'codigo' => 'e28'
+        'codigo' => 'e28',
+        'permiso' => ['C' => [2, 7, 8], 'R' => [2, 7, 8], 'U' => [8], 'D' => [8]]
     ],
     'curacion' => [
         'titulo' => 'Curaciones',
+        'permiso' => ['C' => [2, 7, 8], 'R' => [2, 7, 8], 'U' => [8], 'D' => [8]]
     ],
     //Formatos nutricion
     'e35' => [
         'titulo' => 'Valoración nutricionista',
-        'codigo' => 'e35'
+        'codigo' => 'e35',
+        'permiso' => ['C' => [4, 8], 'R' => [3, 4, 8], 'U' => [8], 'D' => [8]]
     ],
     'e24' => [
         'titulo' => 'Seguimiento dietas',
-        'consulta_cols' => [],
-        'codigo' => 'e24'
+        'codigo' => 'e24',
+        'permiso' => ['C' => [4, 8], 'R' => [3, 4, 8], 'U' => [8], 'D' => [8]]
     ],
     //Formatos medico
     'e10' => [
         'titulo' => 'Historia clinica',
-        'codigo' => 'e10'
+        'codigo' => 'e10',
+        'permiso' => ['C' => [3, 8], 'R' => [2, 3, 4, 5, 6, 7, 8], 'U' => [8], 'D' => [8]]
     ],
     'e23' => [
         'titulo' => 'Notas de seguimiento',
-        'codigo' => 'e23'
+        'codigo' => 'e23',
+        'permiso' => ['C' => [3, 8], 'R' => [2, 3, 4, 7, 8], 'U' => [8], 'D' => [8]]
     ],
     //Formatos Fisioterapia
     'e21' => [
         'titulo' => 'Valoración fisioterapia',
-        'codigo' => 'e21'
+        'codigo' => 'e21',
+        'permiso' => ['C' => [5, 8], 'R' => [5, 6, 8], 'U' => [8], 'D' => [8]]
     ],
     //Formatos psicologia
     'e36' => [
         'titulo' => 'Evaluación Psicologica',
         'codigo' => 'e36',
+        'permiso' => ['C' => [6, 8], 'R' => [6, 8], 'U' => [8], 'D' => [8]]
     ],
     //Administracion
     'residente' => [
         'titulo' => 'Residente',
-        'roles'  => [1, 7],
         'controller' => 'residente',
+        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [8], 'D' => [8]]
     ],
     'acudiente' => [
         'titulo' => 'Acudiente',
-        'roles' => [1, 7],
         'controller' => 'residente',
+        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [8], 'D' => [8]]
     ]
     ,
     'objeto' => [
         'titulo' => 'Objeto personal',
-        'roles' => [1, 7],
         'controller' => 'residente',
+        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [8], 'D' => [8]]
     ],
     'usuario' => [
         'titulo' => 'Usuario',
-        'roles' => [1, 7],
-        'controller' => 'usuario'
+        'controller' => 'usuario',
+        'permiso' => ['C' => [1, 8], 'R' => [1, 8], 'U' => [1, 8], 'D' => [8]]
     ]
 ];
 $config['modulos'] = [
     'enfermeria' => [
         'titulo' => 'Enfermería',
         'formatos' => ['e07', 'e07c', 'e08', 'e08bis', 'e14', 'e28', 'curacion'],
-        'consulta' => [
-            'enfermeria' => ['e07', 'e07c', 'e08', 'e08bis', 'e14', 'e28', 'curacion'],
-            'medico' => ['e10', 'e23']
-        ],
-        'roles' => [1, 2, 7],
         'residente' => true,
     ],
     'nutricion' => [
         'titulo' => 'Nutrición',
         'formatos' => ['e35', 'e24'],
-        'consulta' => [
-            'nutricion' => ['e35', 'e24'],
-            'enfermeria' => ['e07', 'e07c', 'e08', 'e08bis', 'e14'],
-            'medico' => ['e10', 'e23']
-        ],
-        'roles' => [1, 4],
         'residente' => true,
     ],
     'medico' => [
         'titulo' => 'Medico',
         'formatos' => ['e10', 'e23'],
-        'consulta' => [
-            'medico' => ['e10', 'e23'],
-            'enfermeria' => ['e07', 'e07c', 'e08', 'e08bis', 'e14'],
-            'nutricion' => ['e35', 'e24'],
-        ],
-        'roles' => [1, 3],
         'residente' => true,
     ],
     'fisioterapia' => [
         'titulo' => 'Fisioterapia',
         'formatos' => ['e21'],
-        'consulta' => [
-            'fisioterapia' => ['e21'],
-            'medico' => ['e10']
-        ],
-        'roles' => [1, 5],
         'residente' => true,
     ],
     'psicologia' => [
         'titulo' => 'Psicología',
         'formatos' => ['e36'],
-        'consulta' => [
-            'psicologia' => ['e36'],
-            'medico' => ['e10'],
-            'fisioterapia' => ['e21']
-        ],
-        'roles' => [1, 6],
         'residente' => true,
     ],
     'administracion' => [
         'titulo' => 'Administración',
-        'formatos' => ['residente', 'usuario', 'acudiente', 'objeto', 'usuario'],
-        'consulta' => [
-            'administracion' => ['residente', 'usuario', 'acudiente', 'objeto', 'usuario']
-        ],
-        'roles' => [1, 7],
+        'formatos' => ['residente', 'usuario', 'acudiente', 'objeto'],
         'residente' => false
     ]
 ];
@@ -185,16 +163,6 @@ $config['formatos_consulta'] = [
         ['fn'   => 'getFechaHora', 'label' => 'Fecha'],
         ['fn'   => 'getResumen', 'label' => 'Resumen'],
         ['attr' => 'observaciones', 'label' => 'Observaciones'],
-        /*['attr' => 'bano', 'label' => 'Baño'],
-        ['attr' => 'alimentacion', 'label' => 'Alimentación'],
-        ['attr' => 'lubricacion', 'label' => 'Lub.'],
-        ['attr' => 'orientacion', 'label' => 'Orientación'],
-        ['attr' => 'curacion', 'label' => 'Curación'],
-        ['attr' => 'terapia_fisica', 'label' => 'T.Física'],
-        ['attr' => 'terapia_ocupacional', 'label' => 'T.Ocupa.'],
-        ['attr' => 'eliminacion', 'label' => 'Eliminación'],
-        ['attr' => 'sueno', 'label' => 'Sueño'],
-        ['attr' => 'deambulacion', 'label' => 'Deambula.']*/
     ]],
     'e28' => ['cols' => [
         ['attr' => 'usuario_id', 'label' => 'Usuario'],

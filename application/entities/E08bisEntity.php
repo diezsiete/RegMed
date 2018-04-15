@@ -6,7 +6,7 @@ class E08bisEntity extends Entity
 {
     public function getAttrHtmlTensionArterial()
     {
-        return ($this->tension_arterial + 0) . " <small>mmHg</small>";
+        return $this->tension_arterial . " <small>mmHg</small>";
     }
     public function getAttrHtmlFrecuenciaCardiaca()
     {

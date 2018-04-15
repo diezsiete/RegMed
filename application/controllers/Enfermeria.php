@@ -47,7 +47,6 @@ class Enfermeria extends MY_Controller
         //$this->modulo->esRolAcceso([1, 2, 7]);
     }
     
-    
     public function medicamento_crear()
     {
         $this->medicamento_model->setRules($this->form_validation);
@@ -112,8 +111,7 @@ class Enfermeria extends MY_Controller
                 }
                 $_POST['horas'] = implode(",", $entity->horas);
             }
-
-
+            
             $this->load->view('formato/'.$formato->key.'_form', $vars + [
                     'formato' => $formato,
                     'view' => false,
@@ -124,19 +122,86 @@ class Enfermeria extends MY_Controller
             k($e->getMessage());
         }
     }
-
-
+    
     public function consultarE07c()
     {
-        $vars['formato']  = $this->modulo->getFormato('e07c');
+        $vars['formato'] = $formato = $this->modulo->getFormato('e07c');
         $cedula = $this->residente_helper->session()->cedula;
         
         $this->paginacion->setTotal($this->e07c_model->countAllResident($cedula));
         $limit = $this->paginacion->getLimit();
         $vars['entities'] = $this->e07c_model->findAllResident($cedula, $limit[1], $limit[0]);
-        $vars['entities_administrar'] = $this->e07c_model->findAdministrarHoy($this->residente_helper->session()->cedula);
         $vars['paginacion'] = $this->paginacion->paginacion($this->load);
-
+        
+        if($formato->crear)
+            $vars['entities_administrar'] = $this->e07c_model->findAdministrarHoy($this->residente_helper->session()->cedula);
+        
         $this->load->view('enfermeria/e07c_consultar', $vars);
     }
+
+
+    public function consultarE08()
+    {
+        $formato = $this->modulo->getFormato('e08');
+        $model   = $this->modulo->getFormatoModel($formato);
+        $cols    = $this->modulo->getFormatoConsultaCols($formato);
+        $cedula  = $this->residente_helper->session()->cedula;
+
+        $this->paginacion->setTotal($model->countAllResident($cedula));
+        $limit = $this->paginacion->getLimit();
+        $entities = $model->findAllResident($this->residente_helper->session()->cedula, $limit[1], $limit[0]);
+
+        $this->load->view('enfermeria/e08_consultar', [
+            'formato' => $formato,
+            'entities'=> $entities,
+            'cols'    => $cols,
+            'paginacion' => $this->paginacion->paginacion($this->load),
+            'tab_active' => 'consultar'
+        ]);
+    }
+
+    public function graficasE08()
+    {
+        $formato = $this->modulo->getFormato('e08');
+        $model   = $this->modulo->getFormatoModel($formato);
+
+        /** @var E08Entity[] $entities */
+        $entities = $model->findAllResident($this->residente_helper->session()->cedula, 50);
+
+
+        $graf_data = [
+            'tension_arterial' => ['sistolica' => [], 'diastolica' => []],
+            'frecuencia_cardiaca' => [],
+            'frecuencia_respiratoria' => [],
+            'saturacion' => [],
+            'temperatura' => [],
+            'peso' => [],
+        ];
+        foreach($entities as $entity){
+            foreach($graf_data as $attr => &$data) {
+                if($attr == 'tension_arterial') {
+                    $data['sistolica'][] = [
+                        'x' => $entity->fechahora,
+                        'y' => $entity->getTensionArterialSistolica()
+                    ];
+                    $data['diastolica'][] = [
+                        'x' => $entity->fechahora,
+                        'y' => $entity->getTensionArterialDiastolica()
+                    ];
+                }else
+                    $data[] = [
+                        'x' => $entity->fechahora,
+                        'y' => $entity->$attr
+                    ];
+            }
+        }
+        
+        $this->load->view('enfermeria/e08_graficas', [
+            'formato' => $formato,
+            'entities'=> $entities,
+            'tab_active' => 'graficas',
+            'graf_data' => $graf_data
+        ]);
+    }
+    
 }

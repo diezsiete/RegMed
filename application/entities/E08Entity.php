@@ -45,4 +45,25 @@ class E08Entity extends Entity
     {
         return $this->glucometria . " <small>mg/dL</small>";
     }
+
+    private function explodeTensionArterial()
+    {
+        if(strstr($this->tension_arterial, '/'))
+            $ta = explode('/', $this->tension_arterial, 2);
+        else
+            $ta = explode(' ', $this->tension_arterial, 2);
+        return $ta;
+    }
+
+
+    public function getTensionArterialSistolica()
+    {
+        $ta = $this->explodeTensionArterial();
+        return count($ta) == 2 ? trim($ta[0]) : 0;
+    }
+    public function getTensionArterialDiastolica()
+    {
+        $ta = $this->explodeTensionArterial();
+        return count($ta) == 2 ? trim($ta[1]) : 0;
+    }
 }

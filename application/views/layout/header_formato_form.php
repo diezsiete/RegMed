@@ -5,7 +5,7 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2><?php echo $formato->titulo ?>
-                    <?php echo  isset($formato->codigo) ? "<small>".strtoupper($formato->codigo)."</small>" : "" ?>
+                    <?php echo  $formato->getCodigo() ? "<small>".strtoupper($formato->getCodigo())."</small>" : "" ?>
                 </h2>
                 <div class="panel_toolbox">
                     <a class="btn btn-default btn-sm" href="<?php echo site_url($formato->consultar) ?>">Consultar</a>

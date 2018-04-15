@@ -18,7 +18,7 @@ class E08_model extends MY_Model
         ['field' => 'temperatura',          'label' => 'Temperatura',       'rules' => 'trim|max_length[11]|numeric'],
         ['field' => 'peso',                 'label' => 'Peso',              'rules' => 'trim|max_length[11]|numeric'],
         ['field' => 'glucometria',          'label' => 'Glucometria',       'rules' => 'trim|max_length[11]|numeric'],
-        ['field' => 'observaciones',        'label' => 'Observaciones',     'rules' => 'trim|required|max_length[300]']
+        ['field' => 'observaciones',        'label' => 'Observaciones',     'rules' => 'trim|max_length[300]']
     ];
 }
 ?>
