@@ -86,42 +86,104 @@ class Enfermeria extends MY_Controller
 
     public function editarE07($id)
     {
-        try {
-            $formato = $this->modulo->getFormato("e07");
-            $model   = $this->modulo->getFormatoModel($formato);
-            $entity  = $model->findById($id);
+        $formato = $this->modulo->getFormato("e07");
+        $model   = $this->modulo->getFormatoModel($formato);
+        $entity  = $model->findById($id);
 
-            $vars    = $this->formato_helper->actualizar($model, $entity);
-            if($vars && isset($vars['entity'])){
-                $e07 = $vars['entity'];
-                $horas = explode(',', $this->input->post('horas'));
-                $ok = false;
-                $this->e07_model->deleteHora($e07->id, $e07->residente_cedula);
-                foreach($horas as $hora)
-                    $ok = $this->e07_model->insertHora($e07->id, $e07->residente_cedula, $hora);
-                if($ok){
-                    redirect($formato->consultar);
-                }
+        $vars    = $this->formato_helper->actualizar($model, $entity);
+        if($vars && isset($vars['entity'])){
+            $e07 = $vars['entity'];
+            $horas = explode(',', $this->input->post('horas'));
+            $ok = false;
+            $this->e07_model->deleteHora($e07->id, $e07->residente_cedula);
+            foreach($horas as $hora)
+                $ok = $this->e07_model->insertHora($e07->id, $e07->residente_cedula, $hora);
+            if($ok){
+                redirect($formato->consultar);
             }
-            if(!$this->input->post('actualizar')) {
-                $model->entityToPost($entity);
-                if($medicamento = $this->medicamento_model->findByE07($entity)) {
-                    $_POST['medicamento_id'] = $medicamento->id;
-                    $vars['medicamento'] = $medicamento;
-                }
-                $_POST['horas'] = implode(",", $entity->horas);
-            }
-            
-            $this->load->view('formato/'.$formato->key.'_form', $vars + [
-                    'formato' => $formato,
-                    'view' => false,
-                    'entity' => $entity
-                ]);
-        }catch(Exception $e){
-            //TODO si no existe el formato
-            k($e->getMessage());
         }
+        if(!$this->input->post('actualizar')) {
+            $model->entityToPost($entity);
+            if($medicamento = $this->medicamento_model->findByE07($entity)) {
+                $_POST['medicamento_id'] = $medicamento->id;
+                $vars['medicamento'] = $medicamento;
+            }
+            $_POST['horas'] = implode(",", $entity->horas);
+        }
+        
+        $this->load->view('formato/'.$formato->key.'_form', $vars + [
+            'formato' => $formato,
+            'view' => false,
+            'entity' => $entity
+        ]);
+        
     }
+
+    public function crearE14()
+    {
+        $formato = $this->modulo->getFormato('e14');
+        /** @var E14_model $model */
+        $model   = $this->modulo->getFormatoModel($formato);
+
+        $redirect = $formato->consultar;
+        if($this->input->post('crear_y_crear')){
+            $_POST['crear'] = 'Crear';
+            $redirect = $formato->crear;
+        }
+        $vars    = $this->formato_helper->crear($model, $redirect);
+
+        $this->load->view('formato/e14_form', $vars + [
+            'formato' => $formato,
+            'view' => false,
+            'crear_y_crear' => true,
+        ]);
+    }
+
+    public function consultarE14global()
+    {
+        $formatoe14 = $this->modulo->getFormato('e14');
+        $formato = clone $formatoe14;
+        $formato->crear = $this->modulo->getFormato('e14global')->consultar;
+        $formato->titulo = "Seguimiento Enfermería Global";
+        /** @var E14_model $model */
+        $model   = $this->modulo->getFormatoModel($formato);
+
+        $vars = [];
+        $this->form_validation->set_rules('residentes[]', 'Residentes', 'required');
+        if($this->input->post('crear')) {
+            if ($this->form_validation->run()) {
+                $error_message = false;
+                foreach($this->input->post('residentes') as $residente_cedula){
+                    $_POST['residente_cedula'] = $residente_cedula;
+                    try{
+                        $model->insert($this->input, $this->session->userdata('login')['id']);
+                    }catch(Exception $e){
+                        $error_message = $e->getMessage();
+                    }
+                }
+                if($error_message)
+                    $vars['error_message'] = $error_message;
+                else
+                    $vars['insert_message'] = "Formatos creados exitosamente para los residentes seleccionados";
+
+                //limpiamos post para que no aparezca nada seleccionado
+                $_POST = [];
+                $fields_na = ['bano', 'alimentacion', 'lubricacion', 'sueno', 'curacion', 'terapia_fisica',
+                    'terapia_ocupacional', 'eliminacion', 'deambulacion'];
+                foreach($fields_na as $field)
+                    $_POST[$field]  = "n/a";
+                $_POST['orientacion'] = ["Tiempo", "Persona", "Lugar"];
+            }
+        }
+        
+        $this->load->view('formato/e14_form', $vars + [
+            'residente' => $this->residente_helper->session(),
+            'residentes' => $this->residente_model->findAll(),
+            'view' => false,
+            'formato' => $formato
+        ]);
+    }
+    
     
     public function consultarE07c()
     {

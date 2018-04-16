@@ -14,7 +14,7 @@
     <div class="clearfix"></div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
                     <p>Seleccione el residente para el cual desea ingresar o consultar información</p>
@@ -24,10 +24,11 @@
                     <?php if($residentes): ?>
                         <form action="" method="post">
                             <input type="hidden" name="prev_page" value="<?php echo $prev_page ?>" />
-                            <table class="table table-striped projects">
+                            <div class="table-responsive">
+                            <table class="table">
                                 <thead>
                                 <tr>
-                                    <th style="width: 30%">Nombre</th>
+                                    <th>Nombre</th>
                                     <th>Cedula</th>
                                     <th>Estado</th>
                                     <th>Plan</th>
@@ -51,7 +52,7 @@
                                         ?></td>
                                         <td><?php echo $residente->tipo_plan ?></td>
                                         <td>
-                                            <button type="submit" value="<?php echo $residente->cedula ?>" 
+                                            <button type="submit" value="<?php echo $residente->cedula ?>"
                                                     class="btn btn-success btn-xs" name="select_resident">
                                                 Seleccionar
                                             </button>
@@ -63,6 +64,7 @@
                                 <?php endforeach ?>
                                 </tbody>
                             </table>
+                            </div>
                         </form>
                     <?php else: ?>
                         <div class="alert alert-warning">

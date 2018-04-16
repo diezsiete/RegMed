@@ -35,6 +35,7 @@
             <div class="x_content">
                 <?php if($entities): ?>
                     <?php echo form_open(site_url($formato->consultar)); ?>
+                <div class="table-responsive">
                     <table class="table">
                         <thead>
                         <tr>
@@ -70,6 +71,7 @@
 
                         </tbody>
                     </table>
+                </div>
                     <?php form_close() ?>
                 <?php else: ?>
                     <p>No hay registros para mostrar</p>

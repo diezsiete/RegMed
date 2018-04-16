@@ -56,10 +56,11 @@ function input_textarea($name, $view = false, $label = "", $placeholder = "", $h
     return _input_html($name, $input, $label, $help_block);
 }
 
-function input_submit($name, $view = false, $value = ""){
-    if(!$view)
-        $html = form_submit(["name"=>$name, "class"=>"btn btn-success"], $value);
-    else
+function input_submit($name, $view = false, $value = "", $attrs = []){
+    if(!$view) {
+        $attrs = array_merge(["name" => $name, "class" => "btn btn-success"], $attrs);
+        $html = form_submit($attrs, $value);
+    }else
         $html = "";
     return $html;
 }
@@ -89,12 +90,14 @@ function input_button_radio($name, $view = false, $label = "", $options = [], $d
     if(!$view && $options){
         $html = '<br><div class="btn-group" data-toggle="buttons">';
         $CI =& get_instance();
-        $input = $CI->input->post($name, FALSE);
+        $input = $CI->input->post($name);
+
         foreach($options as $value => $text){
             $checked = set_radio($name, $value, $default == $value);
             //fix en actualizar entidades que rellena $_POST pero set_radio no lo coge
             if($input)
                 $checked = $value == $input ? "checked='checked'" : "";
+
             $html .= '<label class="btn btn-default'.($checked ? " active" : "").'">'
                    .    "<input type='radio' autocomplete='off' $checked value='$value' name='$name'> $text"
                    . '</label>';

@@ -71,25 +71,31 @@ $config['formatos'] = [
     ],
     //Administracion
     'residente' => [
-        'titulo' => 'Residente',
+        'titulo' => 'Residentes',
         'controller' => 'residente',
-        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [8], 'D' => [8]]
+        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [1, 7, 8], 'D' => [8]]
     ],
     'acudiente' => [
         'titulo' => 'Acudiente',
         'controller' => 'residente',
-        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [8], 'D' => [8]]
+        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [1, 7, 8], 'D' => [8]]
     ]
     ,
     'objeto' => [
         'titulo' => 'Objeto personal',
         'controller' => 'residente',
-        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [8], 'D' => [8]]
+        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [1, 7, 8], 'D' => [8]]
     ],
     'usuario' => [
-        'titulo' => 'Usuario',
+        'titulo' => 'Usuarios',
         'controller' => 'usuario',
         'permiso' => ['C' => [1, 8], 'R' => [1, 8], 'U' => [1, 8], 'D' => [8]]
+    ],
+    'e14global' => [
+        'titulo' => 'Seguimiento enfermería global',
+        'controller' => 'enfermeria',
+        'permiso' => ['C' => [2, 7, 8], 'R' => [2, 7, 8], 'U' => [], 'D' => []],
+        'codigo' => 'e14'
     ]
 ];
 $config['modulos'] = [
@@ -120,7 +126,7 @@ $config['modulos'] = [
     ],
     'administracion' => [
         'titulo' => 'Administración',
-        'formatos' => ['residente', 'usuario', 'acudiente', 'objeto'],
+        'formatos' => ['residente', 'usuario', 'acudiente', 'objeto', 'e14global'],
         'residente' => false
     ]
 ];

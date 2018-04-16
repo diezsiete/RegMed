@@ -84,21 +84,31 @@ class Usuario extends MY_Controller {
 
     public function crearUsuario()
     {
-        try {
-            $formato = $this->modulo->getFormato('usuario');
-            $model   = $this->usuario_model;
-            $usuario_rol =  $this->session->userdata['login']['rol'];
-            $vars    = $this->formato_helper->crear($model, $formato->consultar);
+        $formato = $this->modulo->getFormato('usuario');
+        $model = $this->usuario_model;
+        $usuario_rol = $this->session->userdata['login']['rol'];
+        $vars = $this->formato_helper->crear($model, $formato->consultar);
 
-            $this->load->view('usuario/usuario_form', $vars + [
-                'roles'   => $model->obtenerRoles(true, $usuario_rol != 8),
-                'formato' => $formato,
-                'view'    => false
-            ]);
-        }catch(Exception $e){
-            //TODO si no existe el formato
-            k($e->getMessage());
-        }
+        $this->load->view('usuario/usuario_form', $vars + [
+            'roles' => $model->obtenerRoles(true, $usuario_rol != 8),
+            'formato' => $formato,
+            'view' => false
+        ]);
+    }
+    public function editarUsuario($id)
+    {
+        $formato = $this->modulo->getFormato('usuario');
+        $model   = $this->modulo->getFormatoModel($formato);
+        $entity  = $model->findById($id);
+        $vars    = $this->formato_helper->actualizar($model, $entity, $formato->consultar);
+        if(!$this->input->post('actualizar'))
+            $model->entityToPost($entity);
+        $this->load->view('usuario/usuario_form', $vars + [
+            'formato' => $formato,
+            'view' => false,
+            'entity' => $entity,
+            'roles' => $model->obtenerRoles(true, $this->session->userdata['login']['rol'] != 8),
+        ]);
     }
     
     public function consultarUsuario()

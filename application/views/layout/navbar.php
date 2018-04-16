@@ -74,7 +74,7 @@ foreach($nav as $modulo)
                 </div>
             <?php endif ?>
             <?php if($administracion): ?>
-                <div class="menu_section">
+                <div class="menu_section administracion">
                     <h3>Administración</h3>
                     <ul class="nav side-menu">
                         <?php foreach($administracion->formatosEntity as $formato):
@@ -82,8 +82,11 @@ foreach($nav as $modulo)
                                 continue;
                             ?>
                             <li>
+                                <?php if($formato->getCodigo()): ?>
+                                    <span class="reporte-codigo badge"><?php echo strtoupper($formato->getCodigo()) ?></span>
+                                <?php endif ?>
                                 <a href="<?php echo site_url($formato->consultar) ?>">
-                                    <?php echo $formato->titulo ?>s
+                                    <?php echo $formato->titulo ?>
                                 </a>
                             </li>
                         <?php endforeach ?>

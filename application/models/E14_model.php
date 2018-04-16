@@ -47,6 +47,17 @@ class E14_model extends MY_Model
         ['field' => 'deambulacion',     'label' => 'Deambulación',      'rules' => 'trim|max_length[50]'],
         ['field' => 'observaciones',    'label' => 'Observaciones',     'rules' => 'trim']
     ];
+
+
+    public function findAllResident($cedula, $limit = null, $offset = null)
+    {
+        $get =  $this->db->select($this->queryCols)
+            ->where("residente_cedula", $cedula)
+            ->order_by('fechahora','desc')
+            ->order_by('id', 'desc')
+            ->get($this->table, $limit, $offset);
+        return $this->result($get);
+    }
     
     public function getAlimentaciones($full = false){
         $alimentaciones = $this->alimentaciones;

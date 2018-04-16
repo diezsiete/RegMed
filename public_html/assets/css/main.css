@@ -31,14 +31,11 @@ ul.bar_tabs{
     color:#ffffff;
 }
 
-.top_nav .navbar-right{
-    width: 30%;
-}
+
 .top_nav .top_search {
     float: left;
-    margin-left: 20px;
+    margin-left: 0;
     padding-top: 11px;
-    width: 350px;
     margin-bottom: 0;
 }
 .top_nav .top_search input, .top_nav .top_search input:focus, .top_nav .top_search .input-group-btn button{
@@ -81,6 +78,13 @@ ul.bar_tabs{
     background: #425668;
     font-weight:lighter;
 }
+.main_menu .menu_section.administracion span.reporte-codigo {
+    margin-top: 16px;
+}
+.nav-sm .menu_section.administracion span.reporte-codigo{
+    display: none;
+}
+
 /** nav crear formato button **/
 .nav.child_menu>li>a.crear-formato {
     text-align: center;
@@ -90,6 +94,9 @@ ul.bar_tabs{
     padding:0;
     position:absolute;
     z-index:10;
+}
+.nav-sm ul.nav.child_menu li a.crear-formato{
+    display: none;
 }
 .nav.child_menu>li>a.crear-formato:hover{
     color: #1ABB9C;
@@ -169,4 +176,12 @@ ul.bar_tabs{
 .graficas-content .tab-content>.active{
     border: 1px solid #ddd;
     padding:0;
+}
+
+/** E14 Global **/
+.form-group.has-error .chosen-container-multi .chosen-choices{
+    border: 1px solid #E85445;
+}
+.form-group .btn {
+    margin-bottom: -1px;
 }

@@ -109,9 +109,6 @@ class Modulo
         return $this->formats[$format_key];
     }
     
-
-    
-    
     public function getFormatsByModule()
     {
         $formats_access = $this->getFormatsWithAccess();

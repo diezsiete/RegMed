@@ -7,9 +7,11 @@
                 <h2><?php echo $formato->titulo ?>
                     <?php echo  $formato->getCodigo() ? "<small>".strtoupper($formato->getCodigo())."</small>" : "" ?>
                 </h2>
-                <div class="panel_toolbox">
-                    <a class="btn btn-default btn-sm" href="<?php echo site_url($formato->consultar) ?>">Consultar</a>
-                </div>
+                <?php if(!isset($btn_consultar) || $btn_consultar): ?>
+                    <div class="panel_toolbox">
+                        <a class="btn btn-default btn-sm" href="<?php echo site_url($formato->consultar) ?>">Consultar</a>
+                    </div>
+                <?php endif ?>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -21,7 +23,7 @@
                     echo "<div class='alert alert-danger'>$error_message</div>";
                 }
                 if (isset($insert_message)) {
-                    echo "<div class='alert alert-success'>$insert_message</div>";
+                    echo alert_dismissible($insert_message, 'success');
                 }
                 ?>
 <?php

@@ -49,6 +49,11 @@ class Entity implements JsonSerializable
         return $attr;
     }
 
+    public function __clone()
+    {
+        $this->attrs = clone $this->attrs;
+    }
+
     public function getFechaHora()
     {
         return $this->utils->dateFormat($this->attrs->fechahora, 'Y-m-d H:i:s', 'Y-m-d H:i');
