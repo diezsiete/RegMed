@@ -21,18 +21,27 @@ class Usuario_model extends MY_Model
         ['field' => 'estado',           'label' => 'Estado',        'rules' => 'required'],
     ];
 
+    public function countAllExceptSuperadmin()
+    {
+        return $this->db->select($this->queryCols)->where('rol_id != 8')->get($this->table)->num_rows();
+    }
+
     /**
      * Obtener todos los registros de una tabla
      * @param int $limit
      * @param int $offset
+     * @param bool $except_superadmin
      * @return array
      */
-    public function findAll($limit = null, $offset = null)
+    public function findAll($limit = null, $offset = null, $except_superadmin = false)
     {
-        $get = $this->db
+        $this->db
             ->select("u.".$this->queryCols . ", r.nombre as rol")
-            ->from($this->table . " u")
-            ->join('rol r', 'u.rol_id = r.id')
+            ->from($this->table . " u");
+        if($except_superadmin)
+            $this->db->where('u.rol_id != 8');
+
+        $get = $this->db->join('rol r', 'u.rol_id = r.id')
             ->order_by('u.id ASC')
             ->limit($limit, $offset)
             ->get();
@@ -96,8 +105,10 @@ class Usuario_model extends MY_Model
         return $this->db->update($this->table, ['pass' => password_hash($pass, PASSWORD_BCRYPT)], ['id' => $id]);
     }
 
-    public function obtenerRoles($array = false)
+    public function obtenerRoles($array = false, $except_superadmin = false)
     {
+        if($except_superadmin)
+            $this->db->where('id != 8');
         $roles = $this->db->get('rol')->result();
         if($array){
             $roles_array = [];

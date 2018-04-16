@@ -43,7 +43,7 @@ class Usuario extends MY_Controller {
         ]);
         $this->load->model('usuario_model');
         $this->load->helper('security');
-        
+        $this->load->helper('form_input');
         $this->load->library('modulo');
         $this->load->library('paginacion');
 
@@ -82,6 +82,25 @@ class Usuario extends MY_Controller {
     }
 
 
+    public function crearUsuario()
+    {
+        try {
+            $formato = $this->modulo->getFormato('usuario');
+            $model   = $this->usuario_model;
+            $usuario_rol =  $this->session->userdata['login']['rol'];
+            $vars    = $this->formato_helper->crear($model, $formato->consultar);
+
+            $this->load->view('usuario/usuario_form', $vars + [
+                'roles'   => $model->obtenerRoles(true, $usuario_rol != 8),
+                'formato' => $formato,
+                'view'    => false
+            ]);
+        }catch(Exception $e){
+            //TODO si no existe el formato
+            k($e->getMessage());
+        }
+    }
+    
     public function consultarUsuario()
     {
         $insert_message = '';
@@ -90,12 +109,15 @@ class Usuario extends MY_Controller {
             $insert_message = "Se actualizo correctamente la contraseña.";
         }
         $formato = $this->modulo->getFormato('usuario');
-        $model   = $this->modulo->getFormatoModel($formato);
+        $model   = $this->usuario_model;
         $cols    = $this->modulo->getFormatoConsultaCols($formato);
 
-        $this->paginacion->setTotal($model->countAll());
+
+        $usuario_rol =  $this->session->userdata['login']['rol'];
+        $this->paginacion->setTotal($usuario_rol == 8 ? $model->countAll() : $model->countAllExceptSuperadmin());
         $limit = $this->paginacion->getLimit();
-        $entities = $model->findAll($limit[1], $limit[0]);
+        $entities = $model->findAll($limit[1], $limit[0], $usuario_rol != 8);
+        
         $this->load->view('/usuario/consultar_usuario', [
             'formato' => $formato,
             'entities'=> $entities,

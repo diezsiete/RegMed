@@ -1,6 +1,5 @@
 <?php
 $this->load->view('layout/header_formato_form');
-$roles = $this->getModel('Usuario_model')->obtenerRoles(true);
 $tipos_documento = ['C.C.' => 'C.C.', 'C.E.' => 'C.E.', 'Pasaporte' => 'Pasaporte'];
 $estados = ['Activo' => "Activo", 'Inactiva' => 'Inactivo'];
 ?>
