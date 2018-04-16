@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad07744b-e5ff-411d-8d3c-7e09b0e3a044" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/regmed.php" afterPath="$PROJECT_DIR$/application/config/regmed.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Enfermeria.php" afterPath="$PROJECT_DIR$/application/controllers/Enfermeria.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Usuario.php" afterPath="$PROJECT_DIR$/application/controllers/Usuario.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/entities/Entity.php" afterPath="$PROJECT_DIR$/application/entities/Entity.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/helpers/form_input_helper.php" afterPath="$PROJECT_DIR$/application/helpers/form_input_helper.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/libraries/Modulo.php" afterPath="$PROJECT_DIR$/application/libraries/Modulo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/E14_model.php" afterPath="$PROJECT_DIR$/application/models/E14_model.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/formato/consultar_tabla.php" afterPath="$PROJECT_DIR$/application/views/formato/consultar_tabla.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/formato/e14_form.php" afterPath="$PROJECT_DIR$/application/views/formato/e14_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/layout/footer_formato_form.php" afterPath="$PROJECT_DIR$/application/views/layout/footer_formato_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/layout/header_formato_form.php" afterPath="$PROJECT_DIR$/application/views/layout/header_formato_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/layout/navbar.php" afterPath="$PROJECT_DIR$/application/views/layout/navbar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/layout/topnav.php" afterPath="$PROJECT_DIR$/application/views/layout/topnav.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/residente/buscar.php" afterPath="$PROJECT_DIR$/application/views/residente/buscar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/usuario/consultar_usuario.php" afterPath="$PROJECT_DIR$/application/views/usuario/consultar_usuario.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public_html/assets/css/main.css" afterPath="$PROJECT_DIR$/public_html/assets/css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/config.php" afterPath="$PROJECT_DIR$/application/config/config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/database.php" afterPath="$PROJECT_DIR$/application/config/database.php" />
     </list>
     <ignored path="RegMedJ2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Enfermeria.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/controllers/Enfermeria.php">
+      <file leaf-file-name="consultar.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/formato/consultar.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="164" column="3" selection-start-line="164" selection-start-column="3" selection-end-line="164" selection-end-column="3" />
+            <state relative-caret-position="195">
+              <caret line="13" column="63" selection-start-line="13" selection-start-column="63" selection-end-line="13" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -322,6 +307,24 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RegMed" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RegMed" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -416,12 +419,12 @@
       <workItem from="1523290541491" duration="538000" />
       <workItem from="1523639881258" duration="41718000" />
       <workItem from="1523813425114" duration="657000" />
-      <workItem from="1523892311090" duration="15980000" />
+      <workItem from="1523892311090" duration="16348000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="243861000" />
+    <option name="totallyTimeSpent" value="244229000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="34" width="1400" height="837" extended-state="0" />
@@ -467,20 +470,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/views/residente/residente_ver.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/enfermeria/e08_consultar_header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/enfermeria/e08_consultar.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -831,22 +820,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/formato/consultar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="63" selection-start-line="13" selection-start-column="63" selection-end-line="13" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/formato/consultar_tabla.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/usuario/consultar_usuario.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
@@ -859,6 +832,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="164" column="3" selection-start-line="164" selection-start-column="3" selection-end-line="164" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/formato/consultar_tabla.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-835">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/formato/consultar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="63" selection-start-line="13" selection-start-column="63" selection-end-line="13" selection-end-column="63" />
           <folding />
         </state>
       </provider>
