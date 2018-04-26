@@ -61,13 +61,17 @@ class Formato_helper
         $model->setRules($this->form_validation);
         if($this->input->post('actualizar')){
             if ($this->form_validation->run()) {
-                if($model->update($this->input, $entity, $this->session->userdata('login')['id'])){
-                    $vars['success_message'] = 'Registro guardado exitosamente';
-                    $vars['entity'] = $entity;
-                    if($redirect)
-                        redirect($redirect);
-                }else
-                    $vars['error_message'] = 'Error en actualización de formato';
+                try {
+                    if ($model->update($this->input, $entity, $this->session->userdata('login')['id'])) {
+                        $vars['success_message'] = 'Registro guardado exitosamente';
+                        $vars['entity'] = $entity;
+                        if ($redirect)
+                            redirect($redirect);
+                    } else
+                        $vars['error_message'] = 'Error en actualización de formato';
+                } catch(Exception $e){
+                    $vars['error_message'] = $e->getMessage();
+                }
             }
         }
         return $vars;

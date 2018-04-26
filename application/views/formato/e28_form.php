@@ -18,14 +18,14 @@ $_POST['last_peso'] = $last_peso ? $last_peso : "No hay registro";
 </div>
 
 <div class="col-md-4">
-    <?php echo input_text('peso', $view, "Peso (kg)", "Ingresar Peso (kg)") ?>
+    <?php echo input_text('peso', $view, "Peso Actual (kg)", "Ingresar Peso (kg)") ?>
 </div>
 
 <div class="col-md-4">
     <?php echo input_text('gluco', $view, "Glucosa (mg/dl)", "Ingrese la medida de glucosa (mg/dl)") ?>
 </div>
 
-<div class="col-md-6">
+<div class="col-xs-12">
     <?php if(!$view): ?>
         <?php echo input_button_radio('evol', $view, "Evolución", [
             "+" => "Aumentó",
@@ -40,7 +40,7 @@ $_POST['last_peso'] = $last_peso ? $last_peso : "No hay registro";
     <?php endif ?>
 </div>
 
-<div class="col-md-12">
+<div class="col-xs-12">
     <?php echo input_textarea('dieta', $view, "Dieta", "Ingrese la dieta que sigue el residente.") ?>
 </div>
 

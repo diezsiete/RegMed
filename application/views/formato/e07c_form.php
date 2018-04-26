@@ -48,38 +48,38 @@ $this->load->view('layout/header_formato_form', ['links' => [
     <div class="clearfix"></div>
 <?php endif ?>
 
-<div class="col-md-4">
+<div class="col-xs-4">
     <?php echo input_text('medicamento_nombre', $view, "Medicamento nombre", "Ingresar nombre.") ?>
 </div>
 
-<div class="col-md-4">
+<div class="col-xs-4">
     <?php echo input_text('medicamento_presentacion', $view, "Medicamento presentación", "Ingresar presentación.") ?>
 </div>
 
-<div class="col-md-4">
+<div class="col-xs-4">
     <?php echo input_text('medicamento_cantidad', $view, "Medicamento cantidad <small>( mg )</small>", "Ingresar la cantidad en mg.") ?>
 </div>
 
-<div class="col-md-6">
+<div class="col-xs-8">
     <?php
     $default = isset($medicamento) ? $medicamento->via : array_keys($vias)[0];
     echo input_button_radio('medicamento_via', $view, "Medicamento vía", $vias, $default)
     ?>
 </div>
 
-<div class="col-md-6">
+<div class="col-xs-4">
     <?php echo input_text('dosis', $view, "Dósis / dia", "Ingresar la dósis.") ?>
 </div>
 
-<div class="separator col-md-12 clearfix"></div>
+<div class="separator col-xs-12 clearfix"></div>
 
-<div class="col-md-12">
+<div class="col-xs-12">
     <?php echo input_flatpickr('fechahora', $view, "Fecha y hora dósis") ?>
 </div>
 
-<div class="separator col-md-12 clearfix"></div>
+<div class="separator col-xs-12 clearfix"></div>
 
-<div class="col-md-12">
+<div class="col-xs-12">
     <?php echo input_textarea('observaciones', $view, "Observaciones", "Ingrese observaciones que considere importante informar al personal médico.") ?>
 </div>
 

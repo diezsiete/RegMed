@@ -1,5 +1,5 @@
 <?php
-$this->load->view('layout/header_formato_form');
+$this->load->view('layout/header_formato_form', ['form_open_multipart' => true]);
 $tipos_documento = ['C.C.' => 'C.C.', 'C.E.' => 'C.E.', 'Pasaporte' => 'Pasaporte'];
 $estados = ['Activo' => "Activo", 'Inactiva' => 'Inactivo'];
 ?>
@@ -40,7 +40,7 @@ $estados = ['Activo' => "Activo", 'Inactiva' => 'Inactivo'];
         <?php echo input_text('direccion', $view, "Dirección*", "Ingresar dirección") ?>
     </div>
     <div class="col-md-4">
-        <?php echo input_text('email', $view, "Correo Electronico*", "Ingresar Email") ?>
+        <?php echo input_text('email', $view, "Correo Electrónico", "Ingresar Email") ?>
     </div>
 
 
@@ -49,7 +49,7 @@ $estados = ['Activo' => "Activo", 'Inactiva' => 'Inactivo'];
     <div class="col-md-12">
         <div class="form-group">
             <label class="control-label">Foto</label>
-            <input type="file" name="foto" accept="image/x-png, image/gif, image/jpeg" />
+            <input type="file" name="foto" accept="image/jpeg" />
             <i>*El archivo deberá pesar máximo 2 MB, resolución máxima 640 x 640.</i>
         </div>
     </div>

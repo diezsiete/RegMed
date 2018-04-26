@@ -29,7 +29,8 @@ class E35_model extends MY_Model
         ['field' => 'dermatitis',   'label' => 'Dermatitis',        'rules' => 'trim|max_length[1]'],
         ['field' => 'encias',       'label' => 'Encias',            'rules' => 'trim|max_length[1]'],
         ['field' => 'pigmentacion', 'label' => 'Pigmentacion',      'rules' => 'trim|max_length[1]'],
-        ['field' => 'edema',        'label' => 'Edema',             'rules' => 'trim|max_length[1]']
+        ['field' => 'edema',        'label' => 'Edema',             'rules' => 'trim|max_length[1]'],
+        ['field' => 'glucometria',  'label' => 'Glucometria',       'rules' => 'trim|max_length[11]|numeric']
     ];
 
 }

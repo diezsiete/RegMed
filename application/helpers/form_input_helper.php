@@ -38,7 +38,7 @@ function input_text($name, $view = false, $label = "", $placeholder = "", $help_
     $data = ['id' => $name, 'name' => $name, 'placeholder' => $placeholder, "class" => 'form-control'];
     $data += $attrs;
     $input = _input($name, $view, "form_input", [$data, set_value($name)]);
-    return _input_html($name, $input, $label, $help_block);
+    return _input_html($name, $input, $label, $view ? "" : $help_block);
 }
 
 function input_flatpickr($name, $view = false, $label = "", $placeholder = "", $help_block = "", $extra = []){

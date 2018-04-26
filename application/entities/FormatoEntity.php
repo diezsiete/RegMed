@@ -10,11 +10,12 @@ class FormatoEntity extends Entity
     public $ver = false;
     public $editar = false;
     public $borrar = false;
+    public $imprimir = false;
 
     public function setUrlAccion($accion, $modulo_key)
     {
         $id = false;
-        if($accion == 'ver' || $accion == 'editar' || $accion == 'borrar')
+        if($accion == 'ver' || $accion == 'editar' || $accion == 'borrar' || $accion == 'imprimir')
             $id = true;
         
         $formato_key = $this->attrs->key;

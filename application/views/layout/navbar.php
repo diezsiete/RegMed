@@ -25,12 +25,13 @@ foreach($nav as $modulo)
             <?php if($residente = $this->residente_helper->session()):?>
             <a href="<?php echo site_url($residente->getVerLink()); ?>">
                 <div class="profile_pic">
-                    <img src="<?php echo 'data:image/jpeg;base64,'.base64_encode( $residente->foto )  ?> " class="img-circle profile_img"/>
+                    <img src="<?php echo $residente->getFotoSrc(true) ?>" class="img-circle profile_img" />
+                    <!-- <img src="<?php //echo 'data:image/jpeg;base64,'.base64_encode( $residente->foto )  ?> " class="img-circle profile_img"/> -->
                 </div>
                 <div class="profile_info">
                     <h2><?php echo $residente->nombre ?></h2>
                     <span><?php echo $residente->tipo_documento . " " . $residente->cedula ?></span><br>
-                    <span class="edad"><?php echo $residente->anos ?> Años</span>
+                    <span class="edad"><?php echo $residente->fecha_nacimiento . " (" . $residente->anos ?> Años)</span>
                 </div>
             </a>
             <?php endif ?>

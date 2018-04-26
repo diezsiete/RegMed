@@ -18,5 +18,10 @@ class MY_Loader extends CI_Loader
         }
         return $ci->$model_name;
     }
+
+    public function getUsuarioSession()
+    {
+        return get_instance()->usuario_helper->getUsuarioEntitySession();
+    }
     
 }

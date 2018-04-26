@@ -15,20 +15,30 @@ class Usuario_helper
      * @var stdClass
      */
     private $usuarioSession = null;
+
+    /**
+     * @var UsuarioEntity
+     */
+    private $usuarioEntitySession = null;
     
     
     /**
      * @var CI_Session
      */
     public $session;
-    
-    
-    
+
+    /**
+     * @var Usuario_model
+     */
+    public $usuario_model;
+
 
     public function __construct()
     {
         $ci =& get_instance();
         //$this->residente_model = $this->CI->residente_model;
+        $ci->load->model('usuario_model');
+        $this->usuario_model = $ci->usuario_model;
         $this->session = $ci->session;
     }
 
@@ -36,6 +46,7 @@ class Usuario_helper
      * Obtener o insertar usuario en sesion
      * @param null|string|stdClass $residente
      * @return false|stdClass
+     * @deprecated
      */
     public function session($usuario = null)
     {
@@ -52,5 +63,12 @@ class Usuario_helper
         return $this->usuarioSession;
     }
 
+    public function getUsuarioEntitySession()
+    {
+        if($this->usuarioEntitySession === null){
+            $this->usuarioEntitySession = $this->usuario_model->findById($this->session->userdata['login']['id']);
+        }
+        return $this->usuarioEntitySession;
+    }
     
 }

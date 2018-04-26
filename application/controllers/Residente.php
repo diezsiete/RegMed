@@ -70,23 +70,28 @@ class Residente extends MY_Controller
 
     public function editarResidente($id)
     {
-        try {
-            $formato = $this->modulo->getFormato('residente');
-            $model   = $this->modulo->getFormatoModel($formato);
-            $entity  = $model->findById($id);
-            $url = str_replace('__id__', $id, $formato->ver);
+        $formato = $this->modulo->getFormato('residente');
+        $model   = $this->modulo->getFormatoModel($formato);
+
+        $entity = null;
+        try{
+            $entity = $model->findById($id);
+        }catch (Exception $e){
+            //TODO si no existe id
+            k($e->getMessage());
+        }
+
+        if($entity){
+            $url     = str_replace('__id__', $id, $formato->ver);
             $vars    = $this->formato_helper->actualizar($model, $entity, $url);
             if(!$this->input->post('actualizar'))
                 $model->entityToPost($entity);
 
             $this->load->view('formato/'.$formato->key.'_form', $vars + [
-                    'formato' => $formato,
-                    'view' => false,
-                    'entity' => $entity
-                ]);
-        }catch(Exception $e){
-            //TODO si no existe el formato
-            k($e->getMessage());
+                'formato' => $formato,
+                'view' => false,
+                'entity' => $entity
+            ]);
         }
     }
 

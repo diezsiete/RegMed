@@ -25,7 +25,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="">
                         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <img src="<?php echo base_url("assets/images/default-profile.png"); ?>" alt="">
+                            <img src="<?php echo $this->getUsuarioSession()->getFotoSrc(true) ?>" alt="">
                             <?php echo $this->session->userdata['login']['id'] ?>
                             <span class=" fa fa-angle-down"></span>
                         </a>

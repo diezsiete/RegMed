@@ -8,6 +8,7 @@
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
+                <img src="<?php echo site_url("assets/images/Logo.jpg") ?>" width="150"/>
                 <?php echo form_open("login/login"); ?>
                     <h1>Iniciar Sesión</h1>
                     <?php if(isset($error_message) && $error_message): ?>
@@ -37,8 +38,8 @@
                         <br />
 
                         <div>
-                            <h1>Fundación Juan Pablo II</h1>
-                            <p>©2018</p>
+                            <h6>Fundación Voluntariado Juan Pablo II</h6>
+                            <p><?php echo @date('Y') ?></p>
                         </div>
                     </div>
                 <?php echo form_close(); ?>

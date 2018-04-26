@@ -1,7 +1,7 @@
 <?php
 $tipos_doc = ['C.C.' => 'C.C.', 'C.E.' => 'C.E.', 'Pasaporte' => 'Pasaporte'];
 $generos = ['Másculino' => 'Másculino', 'Femenino' => 'Femenino', 'Indefinido' => 'Indefinido'];
-$tipos_contrato = ['Beneficiario' => 'Beneficiario', 'Cotizante' => 'Cotizante', 'Subsidiario' => 'Subsidiario'];
+$tipos_contrato = ['Beneficiario' => 'Beneficiario', 'Cotizante' => 'Cotizante', 'Subsidiado' => 'Subsidiado'];
 $escolaridades = ['Sin Estudios' => 'Sin Estudios', 'Primaria' => 'Primaria', 'Bachillerato' => 'Bachillerato', 'Pregrado' => 'Pregrado', 'Maestría/Posgrado/PhD' => 'Maestría/Posgrado/PhD'];
 $estados_civiles = ['Soltero' => 'Soltero', 'Casado' => 'Casado', 'Viudo' => 'Viudo'];
 $tipos_planes = ['Residente' => 'Residente', 'Plan Día' => 'Plan Día'];
@@ -95,27 +95,32 @@ $asterisk = $view ? "" : "*";
 </div>
 <div class="clearfix col-md-12"><hr></div>
 
-<div class="col-md-4">
+<div class="col-md-6">
     <?php echo input_button_radio('tipo_plan', $view, 'Tipo Plan '.$asterisk, $tipos_planes, "Residente") ?>
 </div>
 
-<div class="col-md-4">
+<div class="col-md-6">
     <?php echo input_flatpickr('fecha_ingreso', $view, 'Fecha Ingreso '.$asterisk, '', '', [
         'data-dateformat' => "Y-m-d",
     ]) ?>
 </div>
 
-<div class="col-md-4">
-    <div class="pull-right">
-        <?php echo input_button_radio('activo', $view, 'Activo '.$asterisk, ['Si' => 'Si', 'No' => 'No'], 'Si') ?>
-    </div>
+<div class="col-md-3">
+    <?php echo input_button_radio('activo', $view, 'Activo '.$asterisk, ['Si' => 'Si', 'No' => 'No'], 'Si') ?>
+</div>
+<div class="col-md-9">
+    <?php
+    if(!$view && isset($entity) || $view && set_value('motivo_desactivacion'))
+        echo input_text('motivo_desactivacion', $view, 'Motivo desactivación', '',
+            'En caso de desactivar residente, utilice este campo para detallar el motivo de desactivación')
+    ?>
 </div>
 
 <?php if(!$view): ?>
     <div class="col-md-12">
         <div class="form-group">
             <label class="control-label" for="Foto">Foto</label>
-            <input type="file" name="Foto" accept="image/x-png, image/gif, image/jpeg" id="Foto"/>
+            <input type="file" name="foto" accept="image/jpeg" id="Foto"/>
             <p class="help-block">*El archivo deberá pesar máximo 2 MB, resolución máxima 640 x 640.</p>
         </div>
     </div>

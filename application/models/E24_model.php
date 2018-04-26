@@ -15,6 +15,7 @@ class E24_model extends MY_Model
         ['field' => 'peso_imc', 'label' => 'IMC',       'rules' => 'trim|required|max_length[20]'],
         ['field' => 'evolucion','label' => 'Evolución', 'rules' => 'trim|required|max_length[200]'],
         ['field' => 'dieta_recomendaciones', 'label' => 'Dietas y recomendaciones', 'rules' => 'trim|required|max_length[200]'],
+        ['field' => 'glucometria','label' => 'Glucometria','rules' => 'trim|max_length[11]|numeric'],
     ];
 }
 ?>

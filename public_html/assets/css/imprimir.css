@@ -1,0 +1,27 @@
+body{
+    color: #333;
+    background-color: #fff;
+}
+.invoice{
+    position: relative;
+    background: #fff;
+    border: 1px solid #f4f4f4;
+    padding: 20px;
+    margin: 10px 25px;
+}
+.page-header{
+    margin: 10px 0 20px 0;
+    font-size: 22px;
+}
+.page-sub-header{
+    border-bottom: 1px solid #eee;
+    font-size: 1.2em;
+    margin: 0 0 20px 0;
+}
+.page-sub-header .invoice-col{
+    padding: 0;
+}
+
+.separator{
+    border:none;
+}

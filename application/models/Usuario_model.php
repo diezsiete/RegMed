@@ -16,7 +16,7 @@ class Usuario_model extends MY_Model
         ['field' => 'nombre',           'label' => 'Nombre',        'rules' => 'trim|required|max_length[50]'],
         ['field' => 'celular',          'label' => 'Telefono',      'rules' => 'trim|required|max_length[20]|numeric'],
         ['field' => 'direccion',        'label' => 'Direccion',     'rules' => 'trim|required|max_length[50]'],
-        ['field' => 'email',            'label' => 'email',         'rules' => 'required|valid_email|max_length[50]'],
+        ['field' => 'email',            'label' => 'email',         'rules' => 'valid_email|max_length[50]'],
         ['field' => 'rol_id',           'label' => 'Rol',           'rules' => 'required'],
         ['field' => 'estado',           'label' => 'Estado',        'rules' => 'required'],
     ];
@@ -53,13 +53,15 @@ class Usuario_model extends MY_Model
      */
     public function insert(CI_Input $input, $user = null)
     {
-        if(!$this->find($input->post('id', true), $input->post('email', true), $input->post('cedula', true))) {
+        if(!$this->find($input->post('id', true), false, $input->post('cedula', true))) {
             $set = [];
             foreach ($this->fields as $field)
                 $set[$field['field']] = $input->post($field['field'], true);
             $set['pass'] = password_hash($set['id'], PASSWORD_BCRYPT);
             if ($this->db->insert($this->table, $set)) {
-                return $this->findById($set['id']);
+                $entity = $this->findById($set['id']);
+                $this->uploadPhotoAndUpdateFotoName($entity);
+                return $entity;
             } else
                 throw new Exception("Error en creación de registro");
         }else
@@ -68,7 +70,10 @@ class Usuario_model extends MY_Model
 
     public function update(CI_Input $input, $entity, $user = null)
     {
-        return parent::update($input, $entity, null);
+        $return = parent::update($input, $entity, null);
+        if($return)
+            $return = $this->uploadPhotoAndUpdateFotoName($entity);
+        return $return;
     }
 
     public function login($username, $password)

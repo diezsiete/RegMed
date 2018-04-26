@@ -18,4 +18,9 @@ class E24Entity extends Entity
         return $this->attrs->peso_imc + 0;
     }
 
+    public function getAttrHtmlGlucometria()
+    {
+        return $this->glucometria . " <small>mg/dL</small>";
+    }
+
 }

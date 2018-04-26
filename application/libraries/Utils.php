@@ -20,12 +20,6 @@ class Utils
         return  strftime($format_output,$date->getTimestamp());
     }
 
-    public function meses($mes_index = false)
-    {
-
-        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        return $mes_index !== false ? $meses[$mes_index] : $meses;
-    }
 
     /**
      * Numeros formateado en MySQL para ser sumados adecuadamente
@@ -40,64 +34,7 @@ class Utils
         return number_format($value, 0);
     }
 
-    /**
-     * TODO : agregar a biblioteca
-     * Version 1.0
-     * @param $val
-     * @return int|mixed|string
-     */
-    function return_bytes($val) 
-    {
-        $val = trim($val);
-        $last = $val[strlen($val)-1];
-        $val = str_replace($last, '', $val);
-        switch(strtolower($last))
-        {
-            case 'g':
-                $val *= 1024;
-            case 'm':
-                $val *= 1024;
-            case 'k':
-                $val *= 1024;
-        }
-        return $val;
-    }
 
-    function max_file_upload_in_bytes() 
-    {
-        //select maximum upload size
-
-        $max_upload = $this->return_bytes(ini_get('upload_max_filesize'));
-        //select post limit
-        $max_post = $this->return_bytes(ini_get('post_max_size'));
-        //select memory limit
-        $memory_limit = $this->return_bytes(ini_get('memory_limit'));
-        // return the smallest of them, this defines the real limit
-        return min($max_upload, $max_post, $memory_limit);
-    }
-
-    function byte_2_size($bytes,$RoundLength=1) 
-    {
-        $kb = 1024;         // Kilobyte
-        $mb = 1024 * $kb;   // Megabyte
-        $gb = 1024 * $mb;   // Gigabyte
-        $tb = 1024 * $gb;   // Terabyte
-
-        if($bytes < $kb) {
-            if(!$bytes){
-                $bytes = '0';
-            }
-            return (($bytes + 1)-1).' B';
-        } else if($bytes < $mb) {
-            return round($bytes/$kb,$RoundLength).' KB';
-        } else if($bytes < $gb) {
-            return round($bytes/$mb,$RoundLength).' MB';
-        } else if($bytes < $tb) {
-            return round($bytes/$gb,$RoundLength).' GB';
-        } else {
-            return round($bytes/$tb,$RoundLength).' TB';
-        }
-    }
     
     /**
      * Convierte string camelCase a camel_case
@@ -153,5 +90,42 @@ class Utils
             require_once($path);
         }
         return class_exists($controller) ? method_exists($controller, $method) : false;
+    }
+
+    public function thumbnail($imgSrc, $file_save = null)
+    {
+        //getting the image dimensions
+        list($width, $height) = getimagesize($imgSrc);
+
+        //saving the image into memory (for manipulation with GD Library)
+        $myImage = imagecreatefromjpeg($imgSrc);
+
+        // calculating the part of the image to use for thumbnail
+        if ($width > $height) {
+            $y = 0;
+            $x = ($width - $height) / 2;
+            $smallestSide = $height;
+        } else {
+            $x = 0;
+            $y = ($height - $width) / 2;
+            $smallestSide = $width;
+        }
+
+        // copying the part into thumbnail
+        $thumbSize = 128;
+        $thumb = imagecreatetruecolor($thumbSize, $thumbSize);
+        imagecopyresampled($thumb, $myImage, 0, 0, $x, $y, $thumbSize, $thumbSize, $smallestSide, $smallestSide);
+
+        //final output
+        if ($file_save) {
+            if (imagejpeg($thumb, $file_save))
+                return $file_save;
+            throw new Exception("Error en generación de thumbnail");
+        } else
+            return $thumb;
+
+        //print browser
+        //header('Content-type: image/jpeg');
+        //imagejpeg($thumb);
     }
 }

@@ -90,6 +90,26 @@ class Formato extends MY_Controller
             k($e->getMessage());
         }
     }
+
+    public function imprimir($formato, $id)
+    {
+        try{
+            $formato = $this->modulo->getFormato($formato);
+            $model = $this->modulo->getFormatoModel($formato);
+            $entity= $model->findById($id);
+            $model->entityToPost($entity);
+            $this->load->view('formato/imprimir', [
+                'formato' => $formato,
+                'view' => true,
+                'entity' => $entity,
+                'imprimir' => true,
+                'residente' => $this->residente_helper->session(),
+            ]);
+        }catch(Exception $e){
+            //TODO si no existe el formato o el id especifico
+            k($e->getMessage());
+        }
+    }
     
     public function editar($formato, $id)
     {

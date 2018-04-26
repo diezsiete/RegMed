@@ -63,4 +63,8 @@ class E35Entity extends Entity
         return $html;
     }
 
+    public function getAttrHtmlGlucometria()
+    {
+        return $this->glucometria . " <small>mg/dL</small>";
+    }
 }

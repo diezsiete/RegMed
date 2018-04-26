@@ -46,6 +46,47 @@ class MY_Model extends CI_Model
             $entities[] = new $this->entityClass($row);
         return $entities;
     }
+
+    /**
+     * @param string $upload_path
+     * @param string $input_name
+     * @return string|null
+     * @throws Exception
+     */
+    protected function uploadPhoto($input_name = 'foto', $upload_path = '')
+    {
+        if(!$upload_path)
+            $upload_path = '.' . $this->modulo->getProfilePhotoPath();
+
+        if(isset($_FILES[$input_name]['tmp_name']) && $_FILES[$input_name]['tmp_name']) {
+            $config['upload_path'] = $upload_path;
+            $config['allowed_types'] = 'jpg';
+            //$config['max_width'] = 640;
+            //$config['max_height'] = 640;
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload($input_name)) {
+                throw new Exception($this->upload->display_errors());
+            } else {
+                $data = $this->upload->data();
+                $thumb_path = str_replace($data['file_ext'], '-thumb'.$data['file_ext'], $data['full_path']);
+                $this->utils->thumbnail($data['full_path'], $thumb_path);
+                return $data['file_name'];
+            }
+        }
+        return null;
+    }
+
+    protected function uploadPhotoAndUpdateFotoName($entity)
+    {
+        $return = true;
+        $foto_name = $this->uploadPhoto();
+        if ($foto_name)
+            $return = $this->db->update($this->table, ['foto_name' => $foto_name], [$this->primary => $entity->{$this->primary}]);
+        return $return;
+    }
+
     
     public function setRules(CI_Form_validation $form_validation)
     {
@@ -88,7 +129,7 @@ class MY_Model extends CI_Model
         if($user)
             $set['usuario_id'] = $user;
 
-        return $this->db->update($this->table, $set, [$this->primary => $entity->id]);
+        return $this->db->update($this->table, $set, [$this->primary => $entity->{$this->primary}]);
     }
 
     /**
@@ -137,7 +178,7 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * Función para obtener de la BD un reporte dada su llave primaria id
+     * Función para obtener de la BD un registro dada su llave primaria id
      * @param  int $id [identificador único del registro]
      * @return Entity
      * @throws Exception
@@ -149,7 +190,7 @@ class MY_Model extends CI_Model
             ->where($this->primary, $id)
             ->get();
         if($res->num_rows() == 0)
-            throw new Exception("El formato '".$this->table."' con id '$id' no existe");
+            throw new Exception("El registro '".$this->table."' con id '$id' no existe");
         return new $this->entityClass($res->result()[0]);
     }
 
@@ -188,4 +229,5 @@ class MY_Model extends CI_Model
                 $field = $f;
         return $field;
     }
+
 }

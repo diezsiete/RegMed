@@ -18,13 +18,13 @@
     <?php echo input_text('frecuencia_cardiaca', $view, "Frecuencia Cardiaca /min", "Ingresar Frecuencia cardiaca") ?>
 </div>
 
-<div class="col-md-12">
+<div class="col-xs-12">
     <?php echo input_textarea('observaciones', $view, "Observaciones", "Ingrese observaciones que considere importante.") ?>
 </div>
-<div class="col-md-12">
+<div class="col-xs-12">
     <?php echo input_textarea('tratamiento', $view, "Tratamiento", "Ingrese el tratamiento en caso de que haya.") ?>
 </div>
-<div class="col-md-12">
+<div class="col-xs-12">
     <?php echo input_textarea('diagnostico', $view, "Diagnóstico", "Ingrese el diagnóstico en caso de que haya.") ?>
     </div>
 

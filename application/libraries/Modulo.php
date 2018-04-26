@@ -63,11 +63,15 @@ class Modulo
 
         $modulo = $this->getFormatModule($format);
         if($modulo->accessByResidente($residente)){
-            foreach(["C" => ["crear"], "R" => ["consultar", "ver"], "U" => ["editar"], "D" => ["borrar"]] as $permiso => $actions){
+            foreach(["C" => ["crear"], "R" => ["consultar", "ver", "imprimir"], "U" => ["editar"], "D" => ["borrar"]] as $permiso => $actions){
                 $roles_permiso = $format->permiso[$permiso];
-                if(in_array($rol, $roles_permiso))
-                    foreach($actions as $action)
+                if(in_array($rol, $roles_permiso)) {
+                    //si es residente inactivo no pude crear ni editar ni borrar excepto sea rol superadmin
+                    if($residente && in_array($permiso, ["C", "U", "D"]) && $rol != 8 && !$residente->esActivo())
+                        continue;
+                    foreach ($actions as $action)
                         $format->setUrlAccion($action, $modulo->key);
+                }
                 
             }
         }
@@ -155,6 +159,15 @@ class Modulo
     public function formatoExiste($formato_key)
     {
         return isset($this->CI->config->item('formatos')[$formato_key]);
+    }
+
+    public function getProfilePhotoPath()
+    {
+        return $this->CI->config->item('profile_photo_path');
+    }
+    public function getProfilePhotoDefault()
+    {
+        return $this->CI->config->item('profile_photo_default');
     }
 
 

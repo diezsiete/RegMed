@@ -63,28 +63,34 @@ $config['formatos'] = [
         'codigo' => 'e21',
         'permiso' => ['C' => [5, 8], 'R' => [5, 6, 8], 'U' => [8], 'D' => [8]]
     ],
+    'e11' => [
+        'titulo' => 'Notas de seguimiento',
+        'codigo' => 'e11',
+        'permiso' => ['C' => [5, 8], 'R' => [5, 6, 8], 'U' => [8], 'D' => [8]]
+    ],
     //Formatos psicologia
     'e36' => [
         'titulo' => 'Evaluación Psicologica',
         'codigo' => 'e36',
         'permiso' => ['C' => [6, 8], 'R' => [6, 8], 'U' => [8], 'D' => [8]]
     ],
+
     //Administracion
     'residente' => [
         'titulo' => 'Residentes',
         'controller' => 'residente',
-        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [1, 7, 8], 'D' => [8]]
+        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 3, 4, 5, 6, 7, 8], 'U' => [1, 7, 8], 'D' => [8]]
     ],
     'acudiente' => [
         'titulo' => 'Acudiente',
         'controller' => 'residente',
-        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [1, 7, 8], 'D' => [8]]
+        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 3, 4, 5, 6, 7, 8], 'U' => [1, 7, 8], 'D' => [8]]
     ]
     ,
     'objeto' => [
         'titulo' => 'Objeto personal',
         'controller' => 'residente',
-        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 7, 8], 'U' => [1, 7, 8], 'D' => [8]]
+        'permiso' => ['C' => [1, 7, 8], 'R' => [1, 2, 3, 4, 5, 6, 7, 8], 'U' => [1, 7, 8], 'D' => [8]]
     ],
     'usuario' => [
         'titulo' => 'Usuarios',
@@ -116,7 +122,7 @@ $config['modulos'] = [
     ],
     'fisioterapia' => [
         'titulo' => 'Fisioterapia',
-        'formatos' => ['e21'],
+        'formatos' => ['e21', 'e11'],
         'residente' => true,
     ],
     'psicologia' => [
@@ -189,6 +195,7 @@ $config['formatos_consulta'] = [
         ['fn'   => 'getFechaHora', 'label' => 'Fecha control'],
         ['attr' => 'peso', 'label' => 'Peso'],
         ['attr' => 'talla', 'label' => 'Talla'],
+        ['attr' => 'glucometria', 'label' => 'Glucometría'],
         ['attr' => 'problema_digestivo', 'label' => 'Probl. Digest.'],
         ['fn'   => 'getIndicadoresHtml', 'label' => 'Indicadores']
     ]],
@@ -196,6 +203,7 @@ $config['formatos_consulta'] = [
         ['fn'   => 'getFechaHora', 'label' => 'Fecha control'],
         ['attr' => 'peso', 'label' => 'Peso'],
         ['attr' => 'peso_imc', 'label' => 'IMC'],
+        ['attr' => 'glucometria', 'label' => 'Glucometría'],
     ]],
     //Formatos medico
     'e10' => ['cols' => [
@@ -209,13 +217,18 @@ $config['formatos_consulta'] = [
     ]],
     'e23' => ['cols' => [
         ['fn'   => 'getFechaHora', 'label' => 'Fecha control'],
-        ['attr' => 'observaciones', 'label' => 'Peso'],
-        ['attr' => 'recomendaciones', 'label' => 'Talla'],
+        ['attr' => 'observaciones', 'label' => 'Observaciones'],
+        ['attr' => 'recomendaciones', 'label' => 'Recomendaciones'],
     ]],
     //formatos fisioterapia
     'e21' => ['cols' => [
         ['fn' => 'getFechaHora', 'label' => 'Fecha control'],
         ['attr' => 'valdolor', 'label' => 'Valoración dolor']
+    ]],
+    'e11' => ['cols' => [
+        ['fn'   => 'getFechaHora', 'label' => 'Fecha control'],
+        ['attr' => 'observaciones', 'label' => 'Observaciones'],
+        ['attr' => 'recomendaciones', 'label' => 'Recomendaciones'],
     ]],
     //Formatos psicologia
     'e36' => ['cols' => [
@@ -247,3 +260,5 @@ $config['formatos_consulta'] = [
     ]],
 ];
 
+$config['profile_photo_path'] = '/assets/images/profile';
+$config['profile_photo_default'] = '/assets/images/default-profile.png';

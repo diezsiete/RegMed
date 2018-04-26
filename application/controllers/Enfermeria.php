@@ -178,7 +178,7 @@ class Enfermeria extends MY_Controller
         
         $this->load->view('formato/e14_form', $vars + [
             'residente' => $this->residente_helper->session(),
-            'residentes' => $this->residente_model->findAll(),
+            'residentes' => $this->residente_model->findAllActive(),
             'view' => false,
             'formato' => $formato
         ]);

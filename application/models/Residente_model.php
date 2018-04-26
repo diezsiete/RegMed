@@ -29,12 +29,12 @@ class Residente_model extends MY_Model
         ['field' => 'fecha_ingreso',    'label' => 'fecha Ingreso' ,     'rules' => 'trim|required'],
         ['field' => 'eps',             'label' => 'EPS' ,               'rules' => 'trim|required|max_length[20]'],
         ['field' => 'tipo_contrato',    'label' => 'Tipo Contrato' ,     'rules' => 'trim|required|max_length[20]'],
-        ['field' => 'prepagada',       'label' => 'Prepagada' ,         'rules' => 'trim|required|max_length[20]'],
-        ['field' => 'idprepagada',     'label' => 'Contrato Prepagda' , 'rules' => 'trim|max_length[20]|required|alpha_numeric'],
+        ['field' => 'prepagada',       'label' => 'Prepagada' ,         'rules' => 'trim|max_length[20]'],
+        ['field' => 'idprepagada',     'label' => 'Contrato Prepagda' , 'rules' => 'trim|max_length[20]|alpha_numeric'],
         ['field' => 'ocupacion_anterior','label' => 'Ocupacion Anterior','rules' => 'trim|max_length[20]'],
-        ['field' => 'ambulancia',      'label' => 'Ambulancia' ,        'rules' => 'trim|required|max_length[20]'],
+        ['field' => 'ambulancia',      'label' => 'Ambulancia' ,        'rules' => 'trim|max_length[20]'],
         ['field' => 'ips',             'label' => 'IPS',                'rules' => 'trim|required|max_length[20]'],
-        ['field' => 'servicio_de_urgencias','label' => 'Servicio de Urgencias' ,'rules' => 'trim|required|max_length[20]'],
+        ['field' => 'servicio_de_urgencias','label' => 'Servicio de Urgencias' ,'rules' => 'trim|max_length[20]'],
         ['field' => 'valor_pension',    'label' => 'ValorPension' ,      'rules' => 'trim|max_length[20]|numeric'],
         ['field' => 'numero_hijos',     'label' => 'Número Hijos' ,      'rules' => 'trim|max_length[20]|required|numeric'],
         ['field' => 'escolaridad',     'label' => 'Escolaridad',        'rules' => 'trim|required'],
@@ -42,10 +42,18 @@ class Residente_model extends MY_Model
         ['field' => 'estado_civil',     'label' => 'Estado Civil',       'rules' => 'trim|required'],
         ['field' => 'tipo_plan',        'label' => 'Tipo Plan',          'rules' => 'trim|required'],
         ['field' => 'activo',          'label' => 'Activo',             'rules' => 'trim|required'],
-        //['field' => 'foto',            'label' => 'Foto',               'rules' => ''],
+        ['field' => 'motivo_desactivacion', 'label' => 'Motivo desactivación', 'rules' => 'trim|max_length[140]'],
     ];
 
-    
+
+    public function findAllActive($limit = null, $offset = null)
+    {
+        $get = $this->db
+            ->select($this->queryCols)
+            ->where('activo', 'Si')
+            ->get($this->table, $limit, $offset);
+        return $this->result($get);
+    }
     
     public function search($query)
     {
@@ -59,6 +67,12 @@ class Residente_model extends MY_Model
         return $this->db->get()->result();
     }
 
+    /**
+     * @param CI_Input $input
+     * @param null $user
+     * @return Entity
+     * @throws Exception
+     */
     public function insert(CI_Input $input, $user = null)
     {
         try {
@@ -66,10 +80,11 @@ class Residente_model extends MY_Model
         }catch (Exception $e){
             $set = [];
             foreach($this->fields as $field)
-                $set[$field['field']] = $input->post($field['field'], true);;
+                $set[$field['field']] = $input->post($field['field'], true);
 
             if($this->db->insert($this->table, $set)){
                 $entity = $this->findById($set['cedula']);
+                $this->uploadPhotoAndUpdateFotoName($entity);
                 return $entity;
             }else
                 throw new Exception("Error en creación de registro");
@@ -78,7 +93,18 @@ class Residente_model extends MY_Model
     }
 
     public function update(CI_Input $input, $entity, $user = null) {
-        return parent::update($input, $entity);
+        $set = [];
+        foreach($this->fields as $field)
+            $set[$field['field']] = $input->post($field['field'], true);
+
+        if($set['activo'] == "Si")
+            $set['motivo_desactivacion'] = null;
+
+        $return = $this->db->update($this->table, $set, [$this->primary => $entity->{$this->primary}]);
+
+        if($return)
+            $return = $this->uploadPhotoAndUpdateFotoName($entity);
+        return $return;
     }
 
     /**
