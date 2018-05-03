@@ -4,3 +4,4 @@
 !/phpsessions/.gitkeep
 /application/config/config.php
 application/config/database.php
+/public_html/assets/images/profile
