@@ -102,6 +102,11 @@ $config['formatos'] = [
         'controller' => 'enfermeria',
         'permiso' => ['C' => [2, 7, 8], 'R' => [2, 7, 8], 'U' => [], 'D' => []],
         'codigo' => 'e14'
+    ],
+    'medicamento' => [
+        'titulo' => 'Medicamentos',
+        'controller' => 'medicamento',
+        'permiso' => ['C' => [7, 8], 'R' => [7, 8], 'U' => [7, 8], 'D' => [7, 8]]
     ]
 ];
 $config['modulos'] = [
@@ -132,7 +137,7 @@ $config['modulos'] = [
     ],
     'administracion' => [
         'titulo' => 'Administración',
-        'formatos' => ['residente', 'usuario', 'acudiente', 'objeto', 'e14global'],
+        'formatos' => ['residente', 'usuario', 'acudiente', 'objeto', 'e14global', 'medicamento'],
         'residente' => false
     ]
 ];
@@ -258,6 +263,12 @@ $config['formatos_consulta'] = [
         ['fn' => 'getEstadoLabel', 'label' => 'Estado'],
         ['attr' => 'rol', 'label' => 'Rol']
     ]],
+    'medicamento' => ['cols' => [
+        ['attr' => 'nombre', 'label' => 'Nombre'],
+        ['attr' => 'presentacion', 'label' => 'Presentación'],
+        ['attr' => 'cantidad', 'label' => 'Cantidad'],
+        ['attr' => 'via', 'label' => 'Via']
+    ]]
 ];
 
 $config['profile_photo_path'] = '/assets/images/profile';

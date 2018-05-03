@@ -58,21 +58,26 @@ class MY_Model extends CI_Model
         if(!$upload_path)
             $upload_path = '.' . $this->modulo->getProfilePhotoPath();
 
-        if(isset($_FILES[$input_name]['tmp_name']) && $_FILES[$input_name]['tmp_name']) {
-            $config['upload_path'] = $upload_path;
-            $config['allowed_types'] = 'jpg';
-            //$config['max_width'] = 640;
-            //$config['max_height'] = 640;
+        if(isset($_FILES[$input_name]['tmp_name']) && $_FILES[$input_name]['error'] != 4) {
+            if ($_FILES[$input_name]['tmp_name'] && !$_FILES[$input_name]['error']) {
+                $config['upload_path'] = $upload_path;
+                $config['allowed_types'] = 'jpg|jpeg|png';
+                //$config['max_width'] = 640;
+                //$config['max_height'] = 640;
 
-            $this->load->library('upload', $config);
+                $this->load->library('upload', $config);
 
-            if (!$this->upload->do_upload($input_name)) {
-                throw new Exception($this->upload->display_errors());
-            } else {
-                $data = $this->upload->data();
-                $thumb_path = str_replace($data['file_ext'], '-thumb'.$data['file_ext'], $data['full_path']);
-                $this->utils->thumbnail($data['full_path'], $thumb_path);
-                return $data['file_name'];
+                if (!$this->upload->do_upload($input_name)) {
+                    throw new Exception($this->upload->display_errors());
+                } else {
+                    $data = $this->upload->data();
+                    $thumb_path = str_replace($data['file_ext'], '-thumb' . $data['file_ext'], $data['full_path']);
+                    $this->utils->thumbnail($data['full_path'], $thumb_path);
+                    return $data['file_name'];
+                }
+            }else{
+                $msj =  $_FILES[$input_name]['error'] == 1 ? "El archivo supera el maximo tamaño de carga" : "Error al cargar foto";
+                throw new Exception($msj);
             }
         }
         return null;

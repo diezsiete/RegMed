@@ -24,6 +24,8 @@ class E07c_model extends MY_Model
         ['field' => 'medicamento_via',      'label' => 'Via Administracion','rules' => 'trim|required|max_length[25]'],
         ['field' => 'fechahora',            'label' => 'Fecha hora',        'rules' => 'trim|required'],
         ['field' => 'e07_id',               'label' => 'E07 id',            'rules' => 'trim'],
+        ['field' => 'medicamento_cantidad_unidad','label' => 'Cantidad unidad','rules' => 'trim|max_length[15]'],
+        ['field' => 'medicamento_cantidad_excepcional','label' => 'Cantidad excepcional','rules' => 'trim|max_length[65]'],
     ];
 
     /**

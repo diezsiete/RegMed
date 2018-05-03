@@ -34,8 +34,65 @@ class Utils
         return number_format($value, 0);
     }
 
+    /**
+     * TODO : agregar a biblioteca
+     * Version 1.0
+     * @param $val
+     * @return int|mixed|string
+     */
+    function return_bytes($val)
+    {
+        $val = trim($val);
+        $last = $val[strlen($val)-1];
+        $val = str_replace($last, '', $val);
+        switch(strtolower($last))
+        {
+            case 'g':
+                $val *= 1024;
+            case 'm':
+                $val *= 1024;
+            case 'k':
+                $val *= 1024;
+        }
+        return $val;
+    }
 
-    
+    function max_file_upload_in_bytes()
+    {
+        //select maximum upload size
+
+        $max_upload = $this->return_bytes(ini_get('upload_max_filesize'));
+        //select post limit
+        $max_post = $this->return_bytes(ini_get('post_max_size'));
+        //select memory limit
+        $memory_limit = $this->return_bytes(ini_get('memory_limit'));
+        // return the smallest of them, this defines the real limit
+        return min($max_upload, $max_post, $memory_limit);
+    }
+
+    function byte_2_size($bytes,$RoundLength=1)
+    {
+        $kb = 1024;         // Kilobyte
+        $mb = 1024 * $kb;   // Megabyte
+        $gb = 1024 * $mb;   // Gigabyte
+        $tb = 1024 * $gb;   // Terabyte
+
+        if($bytes < $kb) {
+            if(!$bytes){
+                $bytes = '0';
+            }
+            return (($bytes + 1)-1).' B';
+        } else if($bytes < $mb) {
+            return round($bytes/$kb,$RoundLength).' KB';
+        } else if($bytes < $gb) {
+            return round($bytes/$mb,$RoundLength).' MB';
+        } else if($bytes < $tb) {
+            return round($bytes/$gb,$RoundLength).' GB';
+        } else {
+            return round($bytes/$tb,$RoundLength).' TB';
+        }
+    }
+
     /**
      * Convierte string camelCase a camel_case
      * @param $input

@@ -1,13 +1,17 @@
 function fill_medicamento_form(medicamento)
 {
-    $nombre = $('#medicamento_nombre');
-    $presentacion = $('#medicamento_presentacion');
-    $cantidad = $('#medicamento_cantidad');
-    $vias = $('input[name="medicamento_via"]');
+    var $nombre = $('#medicamento_nombre');
+    var $presentacion = $('#medicamento_presentacion');
+    var $cantidad = $('#medicamento_cantidad');
+    var $vias = $('input[name="medicamento_via"]');
+    var $cantidad_unidad = $('#medicamento_cantidad_unidad');
+    var $cantidad_excepcional = $('#medicamento_cantidad_excepcional');
 
     $nombre.val(medicamento.nombre);
     $presentacion.val(medicamento.presentacion);
     $cantidad.val(medicamento.cantidad != 0 ? medicamento.cantidad : "");
+    $cantidad_unidad.val(medicamento.cantidad_unidad);
+    $cantidad_excepcional.val(medicamento.cantidad_excepcional);
 
     $vias.each(function(){
         var $this = $(this);

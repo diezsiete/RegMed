@@ -65,15 +65,33 @@
                 </div>
                 <?php $vali = form_error('cantidad'); ?>
                 <div class="form-group<?php echo $vali ? ' has-error' : '' ?>">
-                    <label for="cantidad" class="control-label col-md-3 col-sm-3 col-xs-12">Canitdad</label>
+                    <label for="cantidad" class="control-label col-md-3 col-sm-3 col-xs-12">Cantidad</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="cantidad" class="form-control col-md-7 col-xs-12" type="text"
-                               name="cantidad" placeholder="Ingresar la cantidad en mg" value="<?php echo set_value('cantidad') ?>">
+                               name="cantidad" placeholder="Ingresar la cantidad " value="<?php echo set_value('cantidad') ?>">
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo input_select('cantidad_unidad', false, false, $medicamento_unidades, 'mg') ?>
                     </div>
                     <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
                         <?php if($vali) echo $vali ?>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8 col-md-offset-3 col-sm-8 col-sm-offset-3 col-xs-12">
+                            Si la cantidad del medicamento no es posible describirla con el anterior campo, escribala
+                            en el siguiente campo
+                        </div>
+                        <div class="col-md-8 col-md-offset-3 col-sm-8 col-sm-offset-3 col-xs-12">
+                            <input type="text" id="cantidad_excepcional" name="cantidad_excepcional" class="form-control col-md-7 col-xs-12"
+                                   value="<?php echo set_value('cantidad_excepcional') ?>" placeholder="">
+                        </div>
+                    </div>
                 </div>
+
+
+
+
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Via</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">

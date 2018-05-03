@@ -7,6 +7,9 @@ $estados_civiles = ['Soltero' => 'Soltero', 'Casado' => 'Casado', 'Viudo' => 'Vi
 $tipos_planes = ['Residente' => 'Residente', 'Plan Día' => 'Plan Día'];
 
 $asterisk = $view ? "" : "*";
+
+$max_upload_size = $this->utils->byte_2_size($this->utils->max_file_upload_in_bytes());
+
 ?>
 
 <div class="col-md-6">
@@ -121,7 +124,7 @@ $asterisk = $view ? "" : "*";
         <div class="form-group">
             <label class="control-label" for="Foto">Foto</label>
             <input type="file" name="foto" accept="image/jpeg" id="Foto"/>
-            <p class="help-block">*El archivo deberá pesar máximo 2 MB, resolución máxima 640 x 640.</p>
+            <p class="help-block">*El archivo deberá pesar máximo <?php echo $max_upload_size ?>.</p>
         </div>
     </div>
 <?php endif ?>

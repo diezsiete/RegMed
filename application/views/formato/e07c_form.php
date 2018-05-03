@@ -2,6 +2,8 @@
 $medicamento_model = $this->getModel('medicamento_model');
 $medicamentos = $medicamento_model->findAll();
 $vias         = $medicamento_model->vias;
+$medicamento_unidades = ["0" => "n/a"] + $medicamento_model->unidades;
+
 
 $this->load->view('layout/header_formato_form', ['links' => [
     'vendors/chosen/chosen.min.css',
@@ -48,17 +50,33 @@ $this->load->view('layout/header_formato_form', ['links' => [
     <div class="clearfix"></div>
 <?php endif ?>
 
-<div class="col-xs-4">
+<div class="col-xs-6">
     <?php echo input_text('medicamento_nombre', $view, "Medicamento nombre", "Ingresar nombre.") ?>
 </div>
 
-<div class="col-xs-4">
+<div class="col-xs-6">
     <?php echo input_text('medicamento_presentacion', $view, "Medicamento presentación", "Ingresar presentación.") ?>
 </div>
 
-<div class="col-xs-4">
-    <?php echo input_text('medicamento_cantidad', $view, "Medicamento cantidad <small>( mg )</small>", "Ingresar la cantidad en mg.") ?>
-</div>
+<?php if(!$view): ?>
+    <div class="col-xs-4">
+        <?php echo input_text('medicamento_cantidad', $view, "Medicamento cantidad", "Ingresar la cantidad númerica") ?>
+    </div>
+    <div class="col-xs-2">
+        <?php
+        $default = set_value("medicamento_cantidad_unidad") || set_value("medicamento_cantidad_unidad") === "0" ? set_value("medicamento_cantidad_unidad") : "mg" ;
+        echo input_select('medicamento_cantidad_unidad', $view,"unidad", $medicamento_unidades, $default)
+        ?>
+    </div>
+    <div class="col-xs-6">
+        <?php echo input_text('medicamento_cantidad_excepcional', $view,"Cantidad excepcional", "Solo utilizar si no puede usar campo cantidad") ?>
+    </div>
+<?php else: ?>
+    <div class="col-xs-12">
+        <label>Cantidad</label><br>
+        <?php echo $entity->getMedicamento()->getAttrHtmlCantidad() ?>
+    </div>
+<?php endif ?>
 
 <div class="col-xs-8">
     <?php

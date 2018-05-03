@@ -2,6 +2,7 @@
 $this->load->view('layout/header_formato_form', ['form_open_multipart' => true]);
 $tipos_documento = ['C.C.' => 'C.C.', 'C.E.' => 'C.E.', 'Pasaporte' => 'Pasaporte'];
 $estados = ['Activo' => "Activo", 'Inactiva' => 'Inactivo'];
+$max_upload_size = $this->utils->byte_2_size($this->utils->max_file_upload_in_bytes());
 ?>
     <div class="col-md-12">
         <?php echo input_text('nombre', $view, "Nombre Empleado*", "Ingresar Nombre Empleado") ?>
@@ -50,7 +51,7 @@ $estados = ['Activo' => "Activo", 'Inactiva' => 'Inactivo'];
         <div class="form-group">
             <label class="control-label">Foto</label>
             <input type="file" name="foto" accept="image/jpeg" />
-            <i>*El archivo deberá pesar máximo 2 MB, resolución máxima 640 x 640.</i>
+            <i>*El archivo deberá pesar máximo <?php echo $max_upload_size ?></i>
         </div>
     </div>
 

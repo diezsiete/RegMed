@@ -238,6 +238,7 @@ class Enfermeria extends MY_Controller
             'saturacion' => [],
             'temperatura' => [],
             'peso' => [],
+            'glucometria' => [],
         ];
         foreach($entities as $entity){
             foreach($graf_data as $attr => &$data) {

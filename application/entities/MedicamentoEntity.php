@@ -10,8 +10,7 @@ class MedicamentoEntity extends Entity
         $nombre = $attrs->nombre;
         if($attrs->presentacion)
             $nombre .= " " . $attrs->presentacion;
-        if($attrs->cantidad > 0)
-            $nombre .= " " . ($attrs->cantidad + 0)."mg";
+        $nombre .= " " . $this->getAttrHtmlCantidad();
 
         return $nombre;
     }
@@ -20,5 +19,14 @@ class MedicamentoEntity extends Entity
     public function getCantidad()
     {
         return $this->attrs->cantidad + 0;
+    }
+
+
+
+    public function getAttrHtmlCantidad()
+    {
+        if($this->attrs->cantidad_excepcional)
+            return $this->attrs->cantidad_excepcional;
+        return $this->getCantidad() . " " . $this->attrs->cantidad_unidad;
     }
 }

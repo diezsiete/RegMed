@@ -15,8 +15,10 @@ class E07_model extends MY_Model
         ['field' => 'dosis',                'label' => 'Dosis',             'rules' => 'trim|max_length[15]'],
         ['field' => 'medicamento_nombre',   'label' => 'Medicamento',       'rules' => 'trim|required|max_length[50]'],
         ['field' => 'medicamento_presentacion','label' => 'Presentación',   'rules' => 'trim|required|max_length[25]'],
-        ['field' => 'medicamento_cantidad', 'label' => 'Cantidad',          'rules' => 'trim|required|numeric'],
-        ['field' => 'medicamento_via',      'label' => 'Via Administracion','rules' => 'trim|required|max_length[25]'],
+        ['field' => 'medicamento_cantidad', 'label' => 'Cantidad',          'rules' => 'trim|numeric'],
+        ['field' => 'medicamento_via',      'label' => 'Via Administracion','rules' => 'trim|max_length[25]'],
+        ['field' => 'medicamento_cantidad_unidad','label' => 'Cantidad unidad','rules' => 'trim|max_length[15]'],
+        ['field' => 'medicamento_cantidad_excepcional','label' => 'Cantidad excepcional','rules' => 'trim|max_length[65]'],
     ];
 
     protected function result($get)
@@ -48,12 +50,38 @@ class E07_model extends MY_Model
         if($user)
             $set['usuario_id'] = $user;
 
+        if($set['medicamento_cantidad_excepcional']){
+            $set['medicamento_cantidad'] = 0;
+            $set['medicamento_cantidad_unidad'] = 0;
+        }
+
         if($this->db->insert($this->table, $set)){
             $id = $this->db->query('SELECT LAST_INSERT_ID()')->row_array()['LAST_INSERT_ID()'];
             $entity = $this->findById($id);
             return $entity;
         }else
             return false;
+    }
+
+    public function update(CI_Input $input, $entity, $user = null)
+    {
+        $set = [];
+        foreach($this->fields as $field) {
+            $value = $input->post($field['field'], true);
+            if(is_array($value))
+                $value = implode(',', $value);
+            $set[$field['field']] = $value;
+        }
+
+        if($user)
+            $set['usuario_id'] = $user;
+
+        if($set['medicamento_cantidad_excepcional']){
+            $set['medicamento_cantidad'] = 0;
+            $set['medicamento_cantidad_unidad'] = 0;
+        }
+
+        return $this->db->update($this->table, $set, [$this->primary => $entity->{$this->primary}]);
     }
 
     public function setRules(CI_Form_validation $form_validation)

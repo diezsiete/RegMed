@@ -1,18 +1,35 @@
 <?php
 
 require_once(ENTITIES_DIR  . "Entity.php");
+require_once(ENTITIES_DIR  . "MedicamentoEntity.php");
 
 class E07Entity extends Entity
 {
+    protected $medicamento = null;
+
     public $horas = [];
+
+    /**
+     * @return MedicamentoEntity|null
+     */
+    public function getMedicamento()
+    {
+        if($this->medicamento === null) {
+            $attrs_medicamento = [];
+            foreach ($this->attrs as $attr => $val)
+                if (strpos($attr, 'medicamento') !== false) {
+                    $attrs_medicamento[str_replace('medicamento_', '', $attr)] = $val;
+                }
+            if($attrs_medicamento) {
+                $this->medicamento = new MedicamentoEntity($attrs_medicamento);
+            }
+        }
+        return $this->medicamento;
+    }
 
     public function getMedNombre()
     {
-        $attrs = $this->attrs;
-        $nombre = $attrs->medicamento_nombre . ($attrs->medicamento_presentacion ? " ".$attrs->medicamento_presentacion : "")
-            . ($attrs->medicamento_cantidad > 0 ? " ".($attrs->medicamento_cantidad + 0)."mg" : "");
-        //$nombre .= " [".$attrs->medicamento_via."]";
-        return $nombre;
+        return $this->getMedicamento()->getNombreCompleto();
     }
     
     public function getHorasDosisBadges()

@@ -62,7 +62,8 @@ $(function() {
         'frecuencia_respiratoria' : {'label' : 'Frecuencia respiratora', 'unidad' : 'min'},
         'saturacion' : {'label' : 'Saturación O2', 'unidad' : '%'},
         'temperatura' : {'label' : 'Temperatura', 'unidad' : '°C'},
-        'peso' : {'label' : 'Peso', 'unidad' : 'kg'}
+        'peso' : {'label' : 'Peso', 'unidad' : 'kg'},
+        'glucometria' : {'label' : 'Glucometría', 'unidad' : 'mg/dL'}
     };
     for(var param in params){
         var config = JSON.parse(JSON.stringify(defaultConfig));
@@ -103,15 +104,33 @@ $(function() {
         window.configs[param] = config;
     }
 
-    var ctx = document.getElementById('tension_arterial').getContext('2d');
-    window.charts['tension_arterial'] = new Chart(ctx, window.configs['tension_arterial']);
+    for(var param in params){
+        var ctx = document.getElementById(param).getContext('2d');
+        window.charts[param] = new Chart(ctx, window.configs[param]);
+    }
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        var $target = $(e.target);
-        var param = $target.attr('href').replace('_tab', '').replace('#', '');
-        if(typeof window.charts[param] == "undefined"){
-            ctx = document.getElementById(param).getContext('2d');
-            window.charts[param] = new Chart(ctx, window.configs[param]);
-        }
-    })
+
+    $('button.graf-button').each(function(){
+       var $btn = $(this);
+       $btn.data('graf-cont', $('#'+$btn.data('param')+'_tab'));
+       $btn.data('graf-canvas', $('#'+$btn.data('param')));
+
+       $btn.click(function(){
+           var $btnClick = $(this);
+           if($btnClick.hasClass('btn-primary')){
+               $btnClick.removeClass('btn-primary').addClass('btn-default');
+               $btnClick.data('graf-cont').addClass('hidden');
+           }else{
+               $btnClick.removeClass('btn-default').addClass('btn-primary');
+               $btnClick.data('graf-cont').removeClass('hidden');
+               var param = $btnClick.data('param');
+               if(typeof window.charts[param] === "undefined"){
+                   ctx = $btnClick.data('graf-canvas')[0].getContext('2d');
+                   window.charts[param] = new Chart(ctx, window.configs[param]);
+               }
+           }
+       })
+    });
+
+
 });
